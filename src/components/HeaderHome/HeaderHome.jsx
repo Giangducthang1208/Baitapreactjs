@@ -6,7 +6,7 @@ export default function HeaderHome() {
     <div>
       <nav className="navbar navbar-expand-sm navbar-dark bg-dark">
         <NavLink className="navbar-brand" to="/">
-          Project Hook
+          <img src="../img/Products/image 3.png" alt="..." />
         </NavLink>
         <button
           className="navbar-toggler d-lg-none"
@@ -26,7 +26,7 @@ export default function HeaderHome() {
             </li>
             <li className="nav-item">
               <NavLink className="nav-link" to="/">
-                Link
+                Login
               </NavLink>
             </li>
             <li className="nav-item dropdown">
