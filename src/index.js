@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import Memo from './pages/Header/Carts/Memo';
 import Home from './pages/Header/Home/Home';
+import '../src/assets/sass/main.scss'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
