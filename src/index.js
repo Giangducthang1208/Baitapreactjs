@@ -4,13 +4,16 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
+import Memo from './pages/Header/Carts/Memo';
+import Home from './pages/Header/Home/Home';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
    <BrowserRouter>
       <Routes>
          <Route path='' element={<App/>}>
-            <Route path='index' element={<index/>}></Route>
+            <Route path='home' element={<Home/>}></Route>
+            <Route path='memo' element={<Memo/>}></Route>
          </Route>
       </Routes>
    </BrowserRouter>
