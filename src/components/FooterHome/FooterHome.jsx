@@ -17,9 +17,9 @@ export default function FooterHome() {
           <div className="footer-items">
             <h3 className="fw-bold fs-5 mb-4">ORDERS</h3>
             <div className="footer-list d-flex flex-column">
-              <a href>Payment options</a>
-              <a href>Shipping and delivery</a>
-              <a href>Returns</a>
+              <a>Payment options</a>
+              <a>Shipping and delivery</a>
+              <a>Returns</a>
             </div>
           </div>
           <div className="footer-items">
@@ -29,7 +29,7 @@ export default function FooterHome() {
                 Create one account to manage everything you do with NIKE, from
                 your shopping preferences to your NIKE + activity.
               </p>
-              <a href className="btn1">
+              <a className="btn1">
                 Learn More
               </a>
             </div>
@@ -44,7 +44,7 @@ export default function FooterHome() {
               <p>
                 Be the first to know about know products and special offers.
               </p>
-              <a href className="btn1">
+              <a className="btn1">
                 Sign up now
               </a>
             </div>
@@ -62,7 +62,7 @@ export default function FooterHome() {
             <h3 className="fw-bold fs-5 mb-4">STORE NEAR YOU</h3>
             <div className="footer-list d-flex flex-column">
               <p>Locate a NIKE retail store or authorized retailer.</p>
-              <a href className="btn1">
+              <a className="btn1">
                 Search
               </a>
             </div>

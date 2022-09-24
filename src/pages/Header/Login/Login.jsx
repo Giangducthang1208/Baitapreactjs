@@ -1,8 +1,14 @@
 import React from "react";
 import { useFormik } from "formik";
+import {useDispatch} from 'react-redux'
 import * as Yup from "yup";
+import { loginApi } from "../../../redux/reducers/userReducer";
 
 export default function Login() {
+  
+  const dispatch = useDispatch()
+
+
   // console.log(123);
   // Lấy dữ liệu từ form
   const frm = useFormik({
@@ -19,7 +25,12 @@ export default function Login() {
     }),
 
     onSubmit: (values) => {
-      console.log(values);
+      // console.log(values);
+        const action = loginApi(values); 
+        dispatch(action)
+
+
+
     },
   });
 
