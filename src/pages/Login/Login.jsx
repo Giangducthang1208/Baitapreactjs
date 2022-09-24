@@ -20,7 +20,7 @@ export default function Login() {
     validationSchema: Yup.object().shape({
       // Check validation
       email:Yup.string().required('Email không được bỏ trống!').email('email không đúng định dạng'),
-      password: Yup.string().required('Password không được bỏ trống!').min(6,'pass từ 6 - 36 ký tự').max(32,'pass từ 6 - 36 ký tự')
+      password: Yup.string().required('Password không được bỏ trống!').min(1,'pass từ 1 - 36 ký tự').max(32,'pass từ 1- 36 ký tự')
       //.maches(/cyber/,'password không đúng định dạng!')
     }),
 
