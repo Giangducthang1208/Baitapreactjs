@@ -1,18 +1,19 @@
-@import './Abstracts/functions';
-@import './Abstracts/mixin';
-@import './Abstracts/variables';
+@import "./Abstracts/functions";
+@import "./Abstracts/mixin";
+@import "./Abstracts/variables";
 
-@import './Base/animation';
-@import './Base/font';
-@import './Base/global';
-@import './Base/reset';
-@import './Base/ultility';
+@import "./Base/animation";
+@import "./Base/font";
+@import "./Base/global";
+@import "./Base/reset";
+@import "./Base/ultility";
 
-@import './Component/button';
+@import "./Component/button";
+@import "./Component/cardCart";
 
-@import './Layout/header';
-@import './Layout/carousel';
-@import './Layout/footer';
+@import "./Layout/header";
+@import "./Layout/carousel";
+@import "./Layout/product";
+@import "./Layout/footer";
 
-@import './Pages/home';
-
+@import "./Pages/home";

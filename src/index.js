@@ -1,24 +1,30 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import {BrowserRouter, Routes, Route} from 'react-router-dom'
-import Memo from './pages/Header/Carts/Memo';
-import Home from './pages/Header/Home/Home';
-import '../src/assets/sass/main.scss'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import "../src/assets/sass/main.scss";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Provider } from "react-redux";
+import { store } from "./redux/configStore";
+import Home from "./pages/Home/Home";
+import Detail from "./pages/Detail/Detail";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-   <BrowserRouter>
+  <Provider store={store}>
+    <BrowserRouter>
       <Routes>
-         <Route path='' element={<App/>}>
-            <Route path='home' element={<Home/>}></Route>
-            <Route path='memo' element={<Memo/>}></Route>
-         </Route>
+        <Route path="" element={<App />}>
+          <Route path="" element={<Home />}></Route>
+          <Route path="home" element={<Home />}></Route>
+          <Route path="detail">
+            <Route path=":id" element={<Detail/>}></Route>
+          </Route>
+        </Route>
       </Routes>
-   </BrowserRouter>
-  
+    </BrowserRouter>
+  </Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function
