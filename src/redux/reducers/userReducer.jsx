@@ -28,8 +28,8 @@ export const loginApi = (userLogin) => {
       alert(result.data.message);
       console.log(result);
     } catch (err) {
+      //alert(result.data.message); 
       console.log(err);
-      alert(result.data.message);
     }
   };
 };
