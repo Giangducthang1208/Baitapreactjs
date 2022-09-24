@@ -7,7 +7,7 @@ import { getProductApi } from "../../redux/reducer/productReducer";
 export default function Home() {
   const { arrProduct } = useSelector((state) => state.product);
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const getAllProductApi = () => {
     const actionThunk = getProductApi();
     dispatch(actionThunk);
@@ -22,7 +22,9 @@ export default function Home() {
       return (
         <div
           className={
-            index === 0 ? "carousel-item active h-100 w-100" : "carousel-item h-100 "
+            index === 0
+              ? "carousel-item active h-100 w-100"
+              : "carousel-item h-100 "
           }
           key={index}
         >
@@ -33,10 +35,13 @@ export default function Home() {
             <div className="items-right w-50">
               <h2>{prod.name}</h2>
               <h4>{prod.shortDescription}</h4>
-              <button className="btn btn-warning" onClick={() => {
-                navigate(`/detail/${prod.id}`)
-              }}>
-                  Buy now
+              <button
+                className="btn btn-warning"
+                onClick={() => {
+                  navigate(`/detail/${prod.id}`);
+                }}
+              >
+                Buy now
               </button>
             </div>
           </div>
@@ -71,7 +76,7 @@ export default function Home() {
           <span className="visually-hidden">Next</span>
         </button>
       </div>
-      <Product/>
+      <Product />
     </>
   );
 }

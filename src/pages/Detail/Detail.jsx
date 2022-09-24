@@ -1,28 +1,81 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import Product from "../../components/Product/Product";
+import {
+  getProductApi,
+  getProductDetailApi,
+} from "../../redux/reducer/productReducer";
 
 export default function Detail() {
-  const id = useParams();
-  console.log(id.id);
+  const getId = useParams();
+  const dispatch = useDispatch();
+  const { productDetail } = useSelector((state) => state.product);
+
+  const getProductDetail = () => {
+    const actionThunk = getProductDetailApi(getId.id);
+    dispatch(actionThunk);
+  };
+
+  useEffect(() => {
+    getProductDetail();
+  }, [getId.id]);
+
+  const renderSizeProduct = () => {
+    let sizeProduct = productDetail.size;
+    if (sizeProduct) {
+      return sizeProduct.map((size, index) => {
+        return (
+          <button key={index} className="btn btn-secondary fs-6">
+            {size}
+          </button>
+        );
+      });
+    }
+  };
   return (
     <>
-      <div class="container d-flex justify-content-between align-items-center">
-        <div class="detail-img">
-          <img id="prod-img" src="" alt="..." class="w-100" />
+      <div
+        className="container d-flex justify-content-between align-items-center"
+        id="product-detail"
+      >
+        <div className="detail-img">
+          <img
+            id="prod-img"
+            src={productDetail.image}
+            alt="..."
+            className="w-100"
+          />
         </div>
-        <div class="detail-content">
-          <h3 id="prod-name" class="fs-1"></h3>
-          <p id="prod-desc" class="fs-2 fw-light"></p>
-          <p class="fs-1 mt-5">Available Size</p>
-          <div id="prod-size" class="my-3 d-flex justify-content-between w-50"></div>
-          <span id="prod-price" class="fs-1"></span>
-          <div class="number-prod d-flex h-75">
-            <button class="fs-3 px-3 btn btn-secondary" id="down">-</button>
-            <span id="number" class="fs-1 mx-3">1</span>
-            <button class="fs-3 px-3 btn btn-secondary" id="up">+</button>
+        <div className="detail-content">
+          <h3 id="prod-name" className="fs-2 fw-bold">
+            {productDetail.name}
+          </h3>
+          <p id="prod-desc" className="fs-6 fw-light">
+            {productDetail.description}
+          </p>
+          <p className="fs-4 mt-3">Available Size</p>
+          <div
+            id="prod-size"
+            className="my-3 d-flex justify-content-between w-50"
+          >
+            {renderSizeProduct()}
           </div>
-          <a class="btn fs-1 btn1">Add to cart</a>
+          <span id="prod-price" className="fs-3">Price:
+            $ {productDetail.price}
+          </span>
+          <div className="number-prod d-flex my-2">
+            <button className="fs-6 px-3 btn btn-secondary" id="down">
+              -
+            </button>
+            <span id="number" className="fs-4 mx-3">
+              1
+            </span>
+            <button className="fs-6 px-3 btn btn-secondary" id="up">
+              +
+            </button>
+          </div>
+          <button className="btn btn-warning mt-2 fs-4">Add to cart</button>
         </div>
       </div>
       <Product />

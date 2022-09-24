@@ -37,11 +37,11 @@ export const getProductApi = () => {
   };
 };
 
-export const getProductDetailApi = () => {
+export const getProductDetailApi = (id) => {
   return async (dispatch) => {
     try {
       const result = await axios({
-        url: "https://shop.cyberlearn.vn/api/Product/getbyid?id=",
+        url: "https://shop.cyberlearn.vn/api/Product/getbyid?id=" + id,
         method: "GET",
       });
       dispatch(getProductDetailAction(result.data.content));
