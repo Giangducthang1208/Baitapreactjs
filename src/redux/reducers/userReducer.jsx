@@ -29,6 +29,7 @@ export const loginApi = (userLogin) => {
       console.log(result);
     } catch (err) {
       console.log(err);
+      alert(result.data.message);
     }
   };
 };
