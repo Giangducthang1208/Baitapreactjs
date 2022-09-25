@@ -1,0 +1,13 @@
+#header {
+    // background-color: red;
+    height: 70px;
+    line-height: 70px;
+    a {
+
+        padding-bottom: 10px;
+        border-bottom:2px solid transparent ;
+        &:hover {
+            border-color: #f8b653;
+        }
+    }
+}

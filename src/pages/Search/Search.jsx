@@ -16,8 +16,9 @@ export default function Search() {
   }, []);
   return (
     <>
-      <div className="container">
+      <div className="container d-flex justify-content-center" id="search">
         <input
+        placeholder="Search your shoes"
           type="text"
           onChange={(e) => {
             const text = e.target.value.toLowerCase();

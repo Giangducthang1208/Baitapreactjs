@@ -10,8 +10,8 @@ export default function Product(props) {
   const renderProduct = () => {
     return arrProduct.map((prod, index) => {
       return (
-        <div className="col-4 d-grid">
-          <figure className="cart-card" key={index}>
+        <div className="col-4 d-grid" key={index}>
+          <figure className="cart-card">
           <img src={prod.image} alt="" />
           <figcaption>
             <h3>{prod.name}</h3>
