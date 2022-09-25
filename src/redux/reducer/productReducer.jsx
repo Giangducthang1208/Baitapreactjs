@@ -4,6 +4,7 @@ import axios from "axios";
 const initialState = {
   arrProduct: [],
   productDetail: [],
+  productSearch: [],
 };
 
 const productReducer = createSlice({
@@ -16,10 +17,14 @@ const productReducer = createSlice({
     getProductDetailAction: (state, action) => {
       state.productDetail = action.payload;
     },
+    getProductSearchAction: (state, action) => {
+      state.productSearch = action.payload
+    }
   },
 });
 
-export const { getProductAction, getProductDetailAction } = productReducer.actions;
+export const { getProductAction, getProductDetailAction, getProductSearchAction  } =
+  productReducer.actions;
 
 export default productReducer.reducer;
 
@@ -37,7 +42,7 @@ export const getProductApi = () => {
   };
 };
 
-export const getProductDetailApi = (id) => { 
+export const getProductDetailApi = (id) => {
   return async (dispatch) => {
     try {
       const result = await axios({
