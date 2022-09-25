@@ -4,7 +4,7 @@ import {useDispatch} from 'react-redux'
 import * as Yup from "yup";
 import { loginApi } from "../../redux/reducer/userReducer";
 
-export default function Login() {
+export default function Login(props) {
   
   const dispatch = useDispatch()
 

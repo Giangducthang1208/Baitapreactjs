@@ -10,22 +10,28 @@ import { store } from "./redux/configStore";
 import Home from "./pages/Home/Home";
 import Detail from "./pages/Detail/Detail";
 import Login from "./pages/Login/Login";
+import {unstable_HistoryRouter as HistoryRouter} from "react-router-dom";
+import {createBrowserHistory} from 'history';
+import Profile from "./pages/Profile/Profile"
+// Cấu hình History (chuyển hướng không cần hook navigate)
+export const history = createBrowserHistory({window});
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Provider store={store}>
-    <BrowserRouter>
+    <HistoryRouter history={history}>
       <Routes>
         <Route path="" element={<App />}>
           <Route path="" element={<Home />}></Route>
           <Route path="home" element={<Home />}></Route>
           <Route path="login" element={<Login />}></Route>
+          <Route path="profile" element={<Profile />}></Route>
           <Route path="detail">
             <Route path=":id" element={<Detail />}></Route>
           </Route>
         </Route>
       </Routes>
-    </BrowserRouter>
+    </HistoryRouter>
   </Provider>
 );
 

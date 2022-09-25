@@ -1,7 +1,25 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 
 export default function HeaderHome() {
+  const { userLogin } = useSelector((state) => state.userReducer);
+
+  const renderLoginNavItem = () => {
+    if (userLogin == null) {
+      return (
+        <NavLink className="nav-link" to="/login">
+          Login
+        </NavLink>
+      );
+    }
+    return (
+      <NavLink className="nav-link" to="/profile">
+        Hello !{userLogin.name}
+      </NavLink>
+    );
+  };
+
   return (
     <div>
       <nav className="navbar navbar-expand-sm navbar-dark bg-black d-flex">
@@ -25,11 +43,7 @@ export default function HeaderHome() {
             </button>
           </form>
           <ul className="navbar-nav me-auto mt-2 mt-lg-0">
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/login">
-                Login
-              </NavLink>
-            </li>
+            <li className="nav-item">{renderLoginNavItem()}</li>
             <li className="nav-item">
               <NavLink className="nav-link" to="/">
                 Register
@@ -81,10 +95,7 @@ export default function HeaderHome() {
               >
                 Hooks
               </NavLink>
-              <div
-                className="dropdown-menu "
-                aria-labelledby="dropdownId"
-              >
+              <div className="dropdown-menu " aria-labelledby="dropdownId">
                 <NavLink className="dropdown-item" to="/home">
                   Home
                 </NavLink>
