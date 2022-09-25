@@ -9,6 +9,7 @@ import { Provider } from "react-redux";
 import { store } from "./redux/configStore";
 import Home from "./pages/Home/Home";
 import Detail from "./pages/Detail/Detail";
+import Search from "./pages/Search/Search";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -19,8 +20,9 @@ root.render(
           <Route path="" element={<Home />}></Route>
           <Route path="home" element={<Home />}></Route>
           <Route path="detail">
-            <Route path=":id" element={<Detail/>}></Route>
+            <Route path=":id" element={<Detail />}></Route>
           </Route>
+          <Route path="search" element={<Search />}></Route>
         </Route>
       </Routes>
     </BrowserRouter>

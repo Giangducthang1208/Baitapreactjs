@@ -3,18 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import { getProductApi } from "../../redux/reducer/productReducer";
 
-export default function Product() {
+export default function Product(props) {
+  const { arrProduct } = props;
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { arrProduct } = useSelector((state) => state.product);
-  const getAllProductApi = () => {
-    const actionThunk = getProductApi();
-    dispatch(actionThunk);
-  };
-
-  useEffect(() => {
-    getAllProductApi();
-  },[]);
 
   const renderProduct = () => {
     return arrProduct.map((prod, index) => {

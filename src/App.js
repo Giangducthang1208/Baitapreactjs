@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import { Outlet } from 'react-router-dom';
 import HeaderHome from './components/HeaderHome/HeaderHome';
 import FooterHome from './components/FooterHome/FooterHome';

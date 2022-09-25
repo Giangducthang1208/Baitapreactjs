@@ -37,7 +37,7 @@ export const getProductApi = () => {
   };
 };
 
-export const getProductDetailApi = (id) => {
+export const getProductDetailApi = (id) => { 
   return async (dispatch) => {
     try {
       const result = await axios({
