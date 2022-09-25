@@ -12,11 +12,10 @@ export default function Home() {
     const actionThunk = getProductApi();
     dispatch(actionThunk);
   };
-
   useEffect(() => {
     getAllProductApi();
   }, []);
-
+  
   const renderCarousel = () => {
     return arrProduct.map((prod, index) => {
       return (
@@ -76,7 +75,7 @@ export default function Home() {
           <span className="visually-hidden">Next</span>
         </button>
       </div>
-      <Product />
+      <Product arrProduct = {arrProduct} />
     </>
   );
 }

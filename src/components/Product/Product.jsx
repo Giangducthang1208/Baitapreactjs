@@ -3,23 +3,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import { getProductApi } from "../../redux/reducer/productReducer";
 
-export default function Product() {
+export default function Product(props) {
+  const { arrProduct } = props;
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { arrProduct } = useSelector((state) => state.product);
-  const getAllProductApi = () => {
-    const actionThunk = getProductApi();
-    dispatch(actionThunk);
-  };
-
-  useEffect(() => {
-    getAllProductApi();
-  },[]);
 
   const renderProduct = () => {
     return arrProduct.map((prod, index) => {
       return (
-        <figure className="cart-card" key={index}>
+        <div className="col-4 d-grid" key={index}>
+          <figure className="cart-card">
           <img src={prod.image} alt="" />
           <figcaption>
             <h3>{prod.name}</h3>
@@ -37,13 +29,14 @@ export default function Product() {
             <i className="fa-solid fa-cart-shopping"></i>
           </a>
         </figure>
+        </div>
       );
     });
   };
   return (
     <div className="container" id="product-feature">
       <h3 className="text-center fs-1 mt-5 fw-bold">Product Feature</h3>
-      <div className="product-items d-flex flex-wrap justify-content-between">
+      <div className="product-items row">
         {renderProduct()}
       </div>
     </div>

@@ -9,6 +9,7 @@ import { Provider } from "react-redux";
 import { store } from "./redux/configStore";
 import Home from "./pages/Home/Home";
 import Detail from "./pages/Detail/Detail";
+import Search from "./pages/Search/Search";
 import Login from "./pages/Login/Login";
 import {unstable_HistoryRouter as HistoryRouter} from "react-router-dom";
 import {createBrowserHistory} from 'history';
@@ -29,6 +30,7 @@ root.render(
           <Route path="detail">
             <Route path=":id" element={<Detail />}></Route>
           </Route>
+          <Route path="search" element={<Search />}></Route>
         </Route>
       </Routes>
     </HistoryRouter>
