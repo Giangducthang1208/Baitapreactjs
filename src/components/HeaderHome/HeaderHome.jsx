@@ -26,7 +26,7 @@ export default function HeaderHome() {
           </form>
           <ul className="navbar-nav me-auto mt-2 mt-lg-0">
             <li className="nav-item">
-              <NavLink className="nav-link" to="/">
+              <NavLink className="nav-link" to="/login">
                 Login
               </NavLink>
             </li>
@@ -90,6 +90,9 @@ export default function HeaderHome() {
                 </NavLink>
                 <NavLink className="dropdown-item" to="/memo">
                   Carts
+                </NavLink>
+                <NavLink className="dropdown-item" to="/login">
+                  Login
                 </NavLink>
               </div>
             </li>
