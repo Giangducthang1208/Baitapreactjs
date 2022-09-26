@@ -28,88 +28,6 @@ export default function HeaderHome() {
             CYBER SHOP
           </NavLink>
         </div>
-<<<<<<< HEAD
-        <div className="collapse navbar-collapse" id="collapsibleNavId">
-          <form className="d-flex my-2 my-lg-0">
-            <input
-              className="form-control me-sm-2"
-              type="text"
-              placeholder="Search"
-            />
-            <button
-              className="btn btn-outline-success my-2 my-sm-0"
-              type="submit"
-            >
-              Search
-            </button>
-          </form>
-          <ul className="navbar-nav me-auto mt-2 mt-lg-0">
-            <li className="nav-item">{renderLoginNavItem()}</li>
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/">
-                Register
-              </NavLink>
-            </li>
-          </ul>
-        </div>
-      </nav>
-      <nav className="navbar navbar-expand-sm navbar-dark">
-        <div className="collapse navbar-collapse" id="collapsibleNavId">
-          <ul className="navbar-nav me-auto mt-2 mt-lg-0">
-            <li className="nav-item">
-              <NavLink
-                className="nav-link active text-black"
-                to="/"
-                aria-current="page"
-              >
-                Home <span className="visually-hidden">(current)</span>
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink className="nav-link text-black" to="/">
-                Men
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink className="nav-link text-black" to="/">
-                Woman
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink className="nav-link text-black" to="/">
-                Kid
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink className="nav-link text-black" to="/">
-                Sport
-              </NavLink>
-            </li>
-            <li className="nav-item dropdown">
-              <NavLink
-                className="nav-link dropdown-toggle text-black"
-                to="/"
-                id="dropdownId"
-                data-bs-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                Hooks
-              </NavLink>
-              <div className="dropdown-menu " aria-labelledby="dropdownId">
-                <NavLink className="dropdown-item" to="/home">
-                  Home
-                </NavLink>
-                <NavLink className="dropdown-item" to="/memo">
-                  Carts
-                </NavLink>
-                <NavLink className="dropdown-item" to="/login">
-                  Login
-                </NavLink>
-              </div>
-            </li>
-          </ul>
-=======
         <div className="category">
           <ul className="d-flex">
             <li className="mx-2 fs-5">
@@ -134,12 +52,12 @@ export default function HeaderHome() {
             <NavLink>Cart</NavLink>
           </div>
           <div className="login mx-2">
-            <NavLink to='/login'>Login</NavLink>
+            <NavLink to='/login'>{renderLoginNavItem()}</NavLink>
           </div>
           <div className="register mx-2">
             <NavLink to='/register'></NavLink>
           </div>
->>>>>>> eab9e938ba97b50298ba8fd0f6420cfc58f4fe44
+          
         </div>
       </div>
     </div>

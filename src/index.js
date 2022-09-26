@@ -14,6 +14,7 @@ import Login from "./pages/Login/Login";
 import {unstable_HistoryRouter as HistoryRouter} from "react-router-dom";
 import {createBrowserHistory} from 'history';
 import Profile from "./pages/Profile/Profile"
+import LoginFacebook from "./pages/Login/LoginFacebook"
 // Cấu hình History (chuyển hướng không cần hook navigate)
 export const history = createBrowserHistory({window});
 
@@ -31,6 +32,7 @@ root.render(
             <Route path=":id" element={<Detail />}></Route>
           </Route>
           <Route path="search" element={<Search />}></Route>
+          <Route path="loginfb" element={<LoginFacebook />}></Route>
         </Route>
       </Routes>
     </HistoryRouter>
