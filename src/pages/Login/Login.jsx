@@ -4,7 +4,6 @@ import { useDispatch } from "react-redux";
 import * as Yup from "yup";
 import { loginApi } from "../../redux/reducer/userReducer";
 import { NavLink } from "react-router-dom";
-import loginFacebook from "./LoginFacebook";
 import LoginFb from "./LoginFacebook";
 
 export default function Login(props) {
@@ -22,11 +21,11 @@ export default function Login(props) {
       // Check validation
       email: Yup.string()
         .required("Email không được bỏ trống!")
-        .email("email không đúng định dạng"),
+        .email("Email không đúng định dạng"),
       password: Yup.string()
         .required("Password không được bỏ trống!")
-        .min(1, "pass từ 1 - 36 ký tự")
-        .max(32, "pass từ 1- 36 ký tự"),
+        .min(1, "Password từ 1 - 32 ký tự")
+        .max(32, "Password từ 1- 32 ký tự"),
       //.maches(/cyber/,'password không đúng định dạng!')
     }),
 
