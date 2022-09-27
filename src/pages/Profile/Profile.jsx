@@ -2,14 +2,14 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import userReducer from "../../redux/reducer/userReducer";
 import { getProfileApi } from "../../redux/reducer/userReducer";
-import {orderItem} from '../../redux/reducer/productReducer'
+import { orderItem } from "../../redux/reducer/productReducer";
 
 export default function Profile() {
   const { userLogin } = useSelector((state) => state.userReducer);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getProfileApi());
-  }, [userLogin]);
+  }, []);
   console.log(userLogin);
   return (
     <div className="container">
@@ -21,7 +21,7 @@ export default function Profile() {
           <hr />
 
           <div className="flex">
-            <img src={userLogin.avatar} className="w-100" alt="..." />
+            <img src={userLogin?.avatar} className="w-100" alt="..." />
           </div>
           <br />
           <br />
@@ -60,11 +60,11 @@ export default function Profile() {
                 role="tabpanel"
                 aria-labelledby="nav-history-tab"
               >
-                {userLogin.ordersHistory?.map((orderItem, index) => {
+                {userLogin?.ordersHistory.map((orderItem, index) => {
                   return (
                     <div className="mt-2" key={index}>
-                      <hr/>
-                      
+                      <hr />
+
                       <h3>Order Detail</h3>
                       <table className="table">
                         <thead>
@@ -78,19 +78,26 @@ export default function Profile() {
                           </tr>
                         </thead>
                         <tbody>
-                          {orderItem.orderDetail?.map((item,index)=>{
-                            return <tr key={index}>
-                              <td>{item.id}</td>
-                              <td>
-                                <img src={item.image} width={50} height={50} style={{objectFit:'over'}} alt="..." />
-                              </td>
-                              <td>{item.name}</td>
-                              <td>{item.price}</td>
-                              <td>{item.quantity}</td>
-                              <td>{item.status}</td>
-                            </tr>
+                          {orderItem.orderDetail?.map((item, index) => {
+                            return (
+                              <tr key={index}>
+                                <td>{item.id}</td>
+                                <td>
+                                  <img
+                                    src={item.image}
+                                    width={50}
+                                    height={50}
+                                    style={{ objectFit: "over" }}
+                                    alt="..."
+                                  />
+                                </td>
+                                <td>{item.name}</td>
+                                <td>{item.price}</td>
+                                <td>{item.quantity}</td>
+                                <td>{item.status}</td>
+                              </tr>
+                            );
                           })}
-                        
                         </tbody>
                       </table>
                     </div>

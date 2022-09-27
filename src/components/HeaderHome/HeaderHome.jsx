@@ -8,17 +8,9 @@ export default function HeaderHome() {
 
   const renderLoginNavItem = () => {
     if (userLogin == null) {
-      return (
-        <NavLink className="nav-link" to="/login">
-          Login
-        </NavLink>
-      );
+      return <NavLink to="/login">Login</NavLink>;
     }
-    return (
-      <NavLink className="nav-link" to="/profile">
-        Hello !{userLogin.name}
-      </NavLink>
-    );
+    return <NavLink to="/profile"><i className="fa-solid fa-user"></i> {userLogin.name}</NavLink>;
   };
 
   // const count = return
@@ -34,16 +26,16 @@ export default function HeaderHome() {
         <div className="category">
           <ul className="d-flex">
             <li className="mx-2 fs-5">
-              <NavLink>Home</NavLink>
+              <NavLink to='/home'>Home</NavLink>
             </li>
             <li className="mx-2 fs-5">
-              <NavLink>Men</NavLink>
+              <NavLink to='/men'>Men</NavLink>
             </li>
             <li className="mx-2 fs-5">
-              <NavLink>Woman</NavLink>
+              <NavLink to='woman'>Woman</NavLink>
             </li>
             <li className="mx-2 fs-5">
-              <NavLink>Sport</NavLink>
+              <NavLink to='sport'>Sport</NavLink>
             </li>
           </ul>
         </div>

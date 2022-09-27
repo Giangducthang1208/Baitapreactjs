@@ -2,29 +2,21 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import Product from "../../components/Product/Product";
-import {
-  getProductApi,
-  getProductDetailApi,
-} from "../../redux/reducer/productReducer";
+import { getProductDetailApi } from "../../redux/reducer/productReducer";
 
 export default function Detail() {
   const getId = useParams();
   const dispatch = useDispatch();
-  const { productDetail, arrProduct } = useSelector((state) => state.product);
-
+  const { productDetail } = useSelector((state) => state.product);
+  console.log(productDetail);
   const getProductDetail = () => {
     const actionThunk = getProductDetailApi(getId.id);
     dispatch(actionThunk);
   };
 
-  const getAllProductApi = () => {
-    const actionThunk = getProductApi();
-    dispatch(actionThunk);
-  };
-
   useEffect(() => {
     getProductDetail();
-    getAllProductApi();
+    window.scrollTo(0, 0);
   }, [getId.id]);
 
   const renderSizeProduct = () => {
@@ -99,7 +91,7 @@ export default function Detail() {
           </button>
         </div>
       </div>
-      <Product arrProduct={arrProduct} />
+      <Product arrProduct={productDetail.relatedProducts} />
     </>
   );
 }

@@ -55,8 +55,7 @@ export const loginApi = (userLogin) => {
       dispatch(getProfileApi());
       dispatch(getOrderApproval());
     } catch (err) {
-      history.push("/home");
-      //alert(result.data.message);
+      alert(err.response.data.message);
       console.log(err);
     }
   };
@@ -87,7 +86,6 @@ export const getProfileApi = (accessToken = getStore(ACCESS_TOKEN)) => {
 export const getOrderApproval = (accessToken = getStore(ACCESS_TOKEN)) => {
   return async (dispatch) => {
     try {
-
       const result = await axios({
         url: "https://shop.cyberlearn.vn/api/Users/OrderApproval",
         method: "POST",
@@ -95,15 +93,36 @@ export const getOrderApproval = (accessToken = getStore(ACCESS_TOKEN)) => {
           Authorization: "Bearer " + accessToken,
         },
       });
-    console.log('333333333333444')
+      console.log("333333333333444");
 
       // Lấy được thông tin của profile => đưa lên redux
       const action = getOrderApprovalAction(result.data.content);
-      console.log(action,'22222222222')
+      console.log(action, "22222222222");
       dispatch(action);
       // lưu vào Storage
       // setStoreJson(USER_LOGIN, result.data.content);
     } catch (err) {
+      alert(err.response.data.message);
+      console.log(err);
+    }
+  };
+};
+
+export const registerApi = (user) => {
+  return async () => {
+    try {
+      user = { ...user, gender: user.gender === "male" ? false : true };
+      console.log(user);
+      const result = await axios({
+        url: "https://shop.cyberlearn.vn/api/Users/signup",
+        method: "POST",
+        data: user,
+      });
+      alert(result.data.message);
+      history.push("/login");
+      console.log(result);
+    } catch (err) {
+      alert(err.response.data.message);
       console.log(err);
     }
   };
