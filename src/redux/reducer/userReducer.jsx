@@ -77,3 +77,23 @@ export const getProfileApi = (accessToken = getStore(ACCESS_TOKEN)) => {
     }
   };
 };
+
+export const registerApi = (user) => {
+  return async () => {
+    try {
+      user = {...user, gender: user.gender === "male" ? false : true}
+      console.log(user)
+      const result = await axios({
+        url: "https://shop.cyberlearn.vn/api/Users/signup",
+        method: "POST",
+        data: user,
+      });
+      alert(result.data.message);
+      history.push("/login");
+      console.log(result);
+    } catch (err) {
+      alert(err.response.data.message);
+      console.log(err);
+    }
+  };
+};

@@ -2,10 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import Product from "../../components/Product/Product";
-import {
-  getProductApi,
-  getProductDetailApi,
-} from "../../redux/reducer/productReducer";
+import { getProductDetailApi } from "../../redux/reducer/productReducer";
 
 export default function Detail() {
   const getId = useParams();
