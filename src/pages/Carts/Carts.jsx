@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
 import * as Yup from "yup";
@@ -6,29 +6,23 @@ import { loginApi } from "../../redux/reducer/userReducer";
 import { NavLink } from "react-router-dom";
 import { Divider, Button, Table } from "antd";
 import { Container } from "./Carts.style";
+import { useSelector } from "react-redux";
+import { getOrderApproval } from "../../redux/reducer/userReducer";
 
 export default function Carts(props) {
   const dispatch = useDispatch();
+  const { userLogin, orderApproval } = useSelector(
+    (state) => state.userReducer
+  );
+  const [dataSource, setDataSource] = useState([]);
 
-  const dataSource = [
-    {
-      id: 1,
-      name: "Adidas Prophere",
-      price: 350,
-      quantity: 995,
-      deleted: false,
-      image: "https://shop.cyberlearn.vn/images/adidas-prophere.png",
-    },
-    {
-      id: 2,
-      name: "Adidas Prophere Black White",
-      price: 450,
-      quantity: 990,
-      deleted: false,
-      image:
-        "https://shop.cyberlearn.vn/images/adidas-prophere-black-white.png",
-    },
-  ];
+  useEffect(() => {
+    let productCart = JSON.parse(localStorage.getItem("productCart"));
+    console.log(productCart, "111111111111");
+    if (productCart?.length > 0) {
+      setDataSource(productCart);
+    }
+  }, []);
 
   const columns = [
     {

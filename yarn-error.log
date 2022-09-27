@@ -1,0 +1,75 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Users\User\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js
+
+PATH: 
+  C:\Users\User\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\User\bin;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Windows\System32\OpenSSH;C:\Program Files\dotnet;C:\Program Files\Git\cmd;C:\Users\User\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\Program Files\Amazon\AWSSAMCLI\bin;C:\Program Files\Docker\Docker\resources\bin;C:\ProgramData\DockerDesktop\version-bin;C:\Program Files\Amazon\AWSCLIV2;C:\Program Files (x86)\Gow\bin;C:\Users\User\AppData\Local\Microsoft\WindowsApps;C:\Users\User\.dotnet\tools;C:\Users\User\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\User\AppData\Roaming\npm;C:\Users\User\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl
+
+Yarn version: 
+  1.22.10
+
+Node version: 
+  14.16.0
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: EPERM: operation not permitted, unlink 'D:\DAT\Baitapreactjs\node_modules\.bin\react-scripts'
+
+npm manifest: 
+  {
+    "name": "baitapreactjs",
+    "version": "0.1.0",
+    "private": true,
+    "dependencies": {
+      "@reduxjs/toolkit": "^1.8.5",
+      "@testing-library/jest-dom": "^5.16.5",
+      "@testing-library/react": "^13.4.0",
+      "@testing-library/user-event": "^13.5.0",
+      "axios": "^0.27.2",
+      "formik": "^2.2.9",
+      "history": "^5.3.0",
+      "node-sass": "^7.0.3",
+      "react": "^18.2.0",
+      "react-dom": "^18.2.0",
+      "react-facebook-login": "^4.1.1",
+      "react-redux": "^8.0.2",
+      "react-router-dom": "^6.4.0",
+      "react-scripts": "5.0.1",
+      "react-slick": "^0.29.0",
+      "redux": "^4.2.0",
+      "sass-loader": "^13.0.2",
+      "web-vitals": "^2.1.4",
+      "yup": "^0.32.11"
+    },
+    "scripts": {
+      "start": "set HTTPS=true&&react-scripts start",
+      "build": "react-scripts build",
+      "test": "react-scripts test",
+      "eject": "react-scripts eject"
+    },
+    "eslintConfig": {
+      "extends": [
+        "react-app",
+        "react-app/jest"
+      ]
+    },
+    "browserslist": {
+      "production": [
+        ">0.2%",
+        "not dead",
+        "not op_mini all"
+      ],
+      "development": [
+        "last 1 chrome version",
+        "last 1 firefox version",
+        "last 1 safari version"
+      ]
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
