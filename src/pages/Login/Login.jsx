@@ -75,7 +75,7 @@ export default function Login(props) {
           )}
         </div>
         <div className="form-group col-3">
-          <a href="#">Register?</a>
+          <NavLink to='/register'>Register ?</NavLink>
           <button className="btn btn-success" type="submit">
             Login
           </button>
