@@ -10,21 +10,16 @@ import {
 export default function Detail() {
   const getId = useParams();
   const dispatch = useDispatch();
-  const { productDetail, arrProduct } = useSelector((state) => state.product);
-
+  const { productDetail } = useSelector((state) => state.product);
+  console.log(productDetail);
   const getProductDetail = () => {
     const actionThunk = getProductDetailApi(getId.id);
     dispatch(actionThunk);
   };
 
-  const getAllProductApi = () => {
-    const actionThunk = getProductApi();
-    dispatch(actionThunk);
-  };
-
   useEffect(() => {
     getProductDetail();
-    getAllProductApi();
+    window.scrollTo(0, 0);
   }, [getId.id]);
 
   const renderSizeProduct = () => {
@@ -84,7 +79,7 @@ export default function Detail() {
           <button className="btn btn-warning mt-2 fs-4">Add to cart</button>
         </div>
       </div>
-      <Product arrProduct={arrProduct} />
+      <Product arrProduct={productDetail.relatedProducts} />
     </>
   );
 }

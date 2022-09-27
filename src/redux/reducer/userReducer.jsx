@@ -50,8 +50,7 @@ export const loginApi = (userLogin) => {
       // Sau khi đăng nhập thành công thì dispatch action getProfile
       dispatch(getProfileApi());
     } catch (err) {
-      history.push("/home");
-      //alert(result.data.message);
+      alert(err.response.data.message);
       console.log(err);
     }
   };

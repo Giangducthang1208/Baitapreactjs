@@ -8,7 +8,7 @@ export default function Product(props) {
   const navigate = useNavigate();
 
   const renderProduct = () => {
-    return arrProduct.map((prod, index) => {
+    return arrProduct?.map((prod, index) => {
       return (
         <div className="col-4 d-grid" key={index}>
           <figure className="cart-card">

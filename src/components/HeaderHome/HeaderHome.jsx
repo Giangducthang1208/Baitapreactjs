@@ -7,17 +7,9 @@ export default function HeaderHome() {
 
   const renderLoginNavItem = () => {
     if (userLogin == null) {
-      return (
-        <NavLink className="nav-link" to="/login">
-          Login
-        </NavLink>
-      );
+      return <NavLink to="/login">Login</NavLink>;
     }
-    return (
-      <NavLink className="nav-link" to="/profile">
-        Hello !{userLogin.name}
-      </NavLink>
-    );
+    return <NavLink to="/profile"><i className="fa-solid fa-user"></i> {userLogin.name}</NavLink>;
   };
 
   return (
@@ -46,18 +38,17 @@ export default function HeaderHome() {
         </div>
         <div className="user d-flex">
           <div className="search mx-2">
-            <NavLink to='/search'><i className="fa fa-magnifying-glass fs-5 "></i></NavLink>
+            <NavLink to="/search">
+              <i className="fa fa-magnifying-glass fs-5 "></i>
+            </NavLink>
           </div>
           <div className="cart mx-2">
             <NavLink>Cart</NavLink>
           </div>
-          <div className="login mx-2">
-            <NavLink to='/login'>{renderLoginNavItem()}</NavLink>
-          </div>
+          <div className="login mx-2">{renderLoginNavItem()}</div>
           <div className="register mx-2">
-            <NavLink to='/register'></NavLink>
+            <NavLink to="/register"></NavLink>
           </div>
-          
         </div>
       </div>
     </div>
