@@ -12,55 +12,65 @@ export default function Profile() {
   }, []);
   console.log(userLogin);
   return (
-    <div className="container">
-      <div className="row">
-        <div className="col-3">
-          <br />
-          <h1>Profile</h1>
-          <br />
-          <hr />
-
-          <div className="flex">
-            <img src={userLogin?.avatar} className="w-100" alt="..." />
+    <div className="container-fluid">
+      <div className="d-flex align-items-start">
+        
+        <div
+          className="nav flex-column nav-pills me-3"
+          id="v-pills-tab"
+          role="tablist"
+          aria-orientation="vertical"
+        >
+          <div>
+          <img src={userLogin?.avatar} className="w-50" alt="..." />
+        </div>
+        <br />
+        <br />
+        <br />
+          <button
+            className="nav-link active w-50"
+            id="v-pills-Profile-tab"
+            data-bs-toggle="pill"
+            data-bs-target="#v-pills-Profile"
+            type="button"
+            role="tab"
+            aria-controls="v-pills-Profile"
+            aria-selected="true"
+          >
+            Profile
+          </button>
+          <button
+            className="nav-link w-50"
+            id="v-pills-History-tab"
+            data-bs-toggle="pill"
+            data-bs-target="#v-pills-History"
+            type="button"
+            role="tab"
+            aria-controls="v-pills-History"
+            aria-selected="false"
+          >
+            Order History
+          </button>
+          
+        </div>
+        <div className="tab-content" id="v-pills-tabContent">
+          <div
+            className="tab-pane fade show active"
+            id="v-pills-Profile"
+            role="tabpanel"
+            aria-labelledby="v-pills-Profile-tab"
+            tabIndex={0}
+          >
+            Profile
           </div>
-          <br />
-          <br />
-          <br />
-          <nav>
-            <div className="nav nav-tabs" id="nav-tab" role="tablist">
-              <button
-                className="nav-link active"
-                id="nav-history-tab"
-                data-bs-toggle="tab"
-                data-bs-target="#nav-history"
-                type="button"
-                role="tab"
-                aria-controls="nav-history"
-                aria-selected="true"
-              >
-                Order history
-              </button>
-              <button
-                className="nav-link"
-                id="nav-profile-tab"
-                data-bs-toggle="tab"
-                data-bs-target="#nav-profile"
-                type="button"
-                role="tab"
-                aria-controls="nav-profile"
-                aria-selected="false"
-              >
-                Favourite
-              </button>
-            </div>
-            <div className="tab-content" id="nav-tabContent">
-              <div
-                className="tab-pane fade show active"
-                id="nav-history"
-                role="tabpanel"
-                aria-labelledby="nav-history-tab"
-              >
-                {userLogin?.ordersHistory.map((orderItem, index) => {
+          <div
+            className="tab-pane fade w-100"
+            id="v-pills-History"
+            role="tabpanel"
+            aria-labelledby="v-pills-History-tab"
+            tabIndex={0}
+          >
+            {userLogin?.ordersHistory.map((orderItem, index) => {
                   return (
                     <div className="mt-2" key={index}>
                       <hr />
@@ -102,20 +112,13 @@ export default function Profile() {
                       </table>
                     </div>
                   );
-                })}
-              </div>
-              <div
-                className="tab-pane fade"
-                id="nav-profile"
-                role="tabpanel"
-                aria-labelledby="nav-profile-tab"
-              >
-                Favourite
-              </div>
-            </div>
-          </nav>
+                })}   
+          </div>
+          
         </div>
       </div>
+
+      
     </div>
   );
 }
