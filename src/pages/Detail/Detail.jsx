@@ -31,6 +31,19 @@ export default function Detail() {
       });
     }
   };
+
+  const addToCart = () => {
+    let productCart = JSON.parse(localStorage.getItem("productCart"));
+    let productCartArr = [];
+    if (productCart?.length > 0) {
+      productCart?.map((item, index) => {
+        productCartArr.push(item);
+      });
+    }
+    productCartArr.push(productDetail);
+    localStorage.setItem("productCart", JSON.stringify(productCartArr));
+  };
+
   return (
     <>
       <div
@@ -73,7 +86,9 @@ export default function Detail() {
               +
             </button>
           </div>
-          <button className="btn btn-warning mt-2 fs-4">Add to cart</button>
+          <button className="btn btn-warning mt-2 fs-4" onClick={addToCart}>
+            Add to cart
+          </button>
         </div>
       </div>
       <Product arrProduct={productDetail.relatedProducts} />

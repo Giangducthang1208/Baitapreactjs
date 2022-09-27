@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
+import { Badge } from "antd";
 
 export default function HeaderHome() {
   const { userLogin } = useSelector((state) => state.userReducer);
@@ -11,6 +12,8 @@ export default function HeaderHome() {
     }
     return <NavLink to="/profile"><i className="fa-solid fa-user"></i> {userLogin.name}</NavLink>;
   };
+
+  // const count = return
 
   return (
     <div className="header" id="header">
@@ -43,9 +46,14 @@ export default function HeaderHome() {
             </NavLink>
           </div>
           <div className="cart mx-2">
-            <NavLink>Cart</NavLink>
+            <NavLink to="/carts">
+              {/* <Badge count={() => 1}>Cart</Badge> */}
+              Cart
+            </NavLink>
           </div>
-          <div className="login mx-2">{renderLoginNavItem()}</div>
+          <div className="login mx-2">
+            <NavLink to="/login">{renderLoginNavItem()}</NavLink>
+          </div>
           <div className="register mx-2">
             <NavLink to="/register"></NavLink>
           </div>

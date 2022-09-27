@@ -16,8 +16,10 @@ import {createBrowserHistory} from 'history';
 import Profile from "./pages/Profile/Profile"
 import LoginFacebook from "./pages/Login/LoginFacebook"
 import Register from "./pages/Register/Register";
+import Carts from "./pages/Carts/Carts";
 // Cấu hình History (chuyển hướng không cần hook navigate)
-export const history = createBrowserHistory({window});
+import "antd/dist/antd.css";
+export const history = createBrowserHistory({ window });
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -34,6 +36,7 @@ root.render(
           </Route>
           <Route path="search" element={<Search />}></Route>
           <Route path="loginfb" element={<LoginFacebook />}></Route>
+          <Route path="carts" element={<Carts />}></Route>
           <Route path="register" element={<Register/>}></Route>
         </Route>
       </Routes>
