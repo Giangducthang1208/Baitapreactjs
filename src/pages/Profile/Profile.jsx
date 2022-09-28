@@ -130,28 +130,28 @@ export default function Profile() {
             aria-labelledby="v-pills-History-tab"
             tabIndex={0}
           >
-            {userLogin?.ordersHistory.map((orderItem, index) => {
-              return (
-                <div className="mt-2" key={index}>
-                  <hr />
+            <h3>Order Detail</h3>
+                <div className="mt-2">
 
-                  <h3>Order Detail</h3>
                   <table className="table">
                     <thead>
                       <tr>
-                        <th>id</th>
+                        <th>Order id</th>
                         <th>img</th>
                         <th>name</th>
                         <th>price</th>
                         <th>quantity</th>
+                        <th>day order</th>
                         <th>total</th>
                       </tr>
                     </thead>
-                    <tbody>
+            {userLogin?.ordersHistory.map((orderItem, index) => {
+              return (
+                    <tbody key={index}>
                       {orderItem.orderDetail?.map((item, index) => {
                         return (
                           <tr key={index}>
-                            <td>{item.id}</td>
+                            <td>{orderItem.id}</td>
                             <td>
                               <img
                                 src={item.image}
@@ -162,17 +162,18 @@ export default function Profile() {
                               />
                             </td>
                             <td>{item.name}</td>
-                            <td>{item.price}</td>
+                            <td>{item.price.toLocaleString()}</td>
                             <td>{item.quantity}</td>
-                            <td>{item.price * item.quantity}</td>
+                            <td>{orderItem.date}</td>
+                            <td>{(item.price * item.quantity).toLocaleString()}</td>
                           </tr>
                         );
                       })}
                     </tbody>
-                  </table>
-                </div>
               );
             })}
+            </table>
+          </div>
           </div>
         </div>
       </div>
