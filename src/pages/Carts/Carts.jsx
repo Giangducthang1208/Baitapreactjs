@@ -2,12 +2,14 @@ import React, { useState, useEffect } from "react";
 import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
 import * as Yup from "yup";
-import { loginApi } from "../../redux/reducer/userReducer";
+import { loginApi, getOrder } from "../../redux/reducer/userReducer";
 import { NavLink } from "react-router-dom";
-import { Divider, Button, Table } from "antd";
+import { Divider, Button, Table, notification } from "antd";
 import { Container, ContainerCount, ButtonAction, Title } from "./Carts.style";
 import { useSelector } from "react-redux";
 import { getOrderApproval } from "../../redux/reducer/userReducer";
+import axios from "axios";
+import { Notification } from "../../components/Notification/Notification";
 
 export default function Carts(props) {
   const dispatch = useDispatch();
@@ -54,6 +56,44 @@ export default function Carts(props) {
       setDataSource(productCart);
     }
   }, [JSON.parse(localStorage.getItem("productCart"))]);
+
+  const submitOrder = () => {
+    let orderDetail = dataSource?.map((item, index) => {
+      return {
+        productId: item.id,
+        quantity: item.quantityCart,
+      };
+    });
+    if (userLogin && orderDetail?.length > 0) {
+      axios
+        .post("https://shop.cyberlearn.vn/api/Users/order", {
+          email: userLogin?.email,
+          orderDetail: orderDetail,
+        })
+        .then(function (response) {
+          Notification({
+            type: "success",
+            message: "Thành công",
+            description: "Đặt hàng thành công!",
+          });
+          setDataSource([]);
+          localStorage.removeItem("productCart");
+        })
+        .catch(function (error) {
+          Notification({
+            type: "error",
+            message: "Lỗi",
+            description: error.response.data.message,
+          });
+        });
+    } else {
+      Notification({
+        type: "error",
+        message: "Lỗi",
+        description: "Giỏ hàng trống nên không thể đặt hàng!",
+      });
+    }
+  };
 
   const columns = [
     {
@@ -129,7 +169,6 @@ export default function Carts(props) {
       render: (_value, _records) => {
         return (
           <ButtonAction
-            // className="button-count"
             onClick={() => {
               deleteProdCart(_records);
             }}
@@ -147,7 +186,10 @@ export default function Carts(props) {
       <Divider plain></Divider>
       <Table dataSource={dataSource} columns={columns} />
       <div className="div-submit">
-        <ButtonAction style={{ backgroundColor: "#F2994A" }}>
+        <ButtonAction
+          style={{ backgroundColor: "#F2994A" }}
+          onClick={submitOrder}
+        >
           SUBMIT ORDER
         </ButtonAction>
       </div>

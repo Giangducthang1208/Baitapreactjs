@@ -6,6 +6,7 @@ import {
   changeQuantityDetail,
   getProductDetailApi,
 } from "../../redux/reducer/productReducer";
+import { Notification } from "../../components/Notification/Notification";
 
 export default function Detail() {
   const getId = useParams();
@@ -49,6 +50,12 @@ export default function Detail() {
       productCartArr.push(productDetail);
     }
     localStorage.setItem("productCart", JSON.stringify(productCartArr));
+
+    Notification({
+      type: "success",
+      message: "Thành công",
+      description: "Thêm vào giỏ hàng thành công!",
+    });
   };
 
   return (
