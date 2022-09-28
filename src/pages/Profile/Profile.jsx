@@ -106,20 +106,20 @@ export default function Profile() {
                 </div>
               </div>
               <div className="card-footer">
-                  <p>Gender</p>
-                  <select>
-                    <option>Female</option>
-                    <option>Male</option>
-                  </select>
-                  <button
-                    className="btn btn-primary mx-2"
-                    type="submit"
-                    // onClick={() => {
-                    //   this.props.updateProduct(this.state.productInfo);
-                    // }}
-                  >
-                    Update
-                  </button>
+                <p>Gender</p>
+                <select>
+                  <option>Female</option>
+                  <option>Male</option>
+                </select>
+                <button
+                  className="btn btn-primary mx-2"
+                  type="submit"
+                  // onClick={() => {
+                  //   this.props.updateProduct(this.state.productInfo);
+                  // }}
+                >
+                  Update
+                </button>
               </div>
             </form>
           </div>
