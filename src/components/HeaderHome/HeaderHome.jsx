@@ -1,7 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { Badge } from "antd";
 
 export default function HeaderHome() {
   const { userLogin } = useSelector((state) => state.userReducer);

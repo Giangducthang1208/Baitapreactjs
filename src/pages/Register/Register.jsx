@@ -2,7 +2,7 @@ import { useFormik } from "formik";
 import React from "react";
 import { useDispatch } from "react-redux";
 import * as Yup from "yup";
-import { loginApi, registerApi } from "../../redux/reducer/userReducer";
+import { registerApi } from "../../redux/reducer/userReducer";
 
 export default function Register() {
   const dispatch = useDispatch();

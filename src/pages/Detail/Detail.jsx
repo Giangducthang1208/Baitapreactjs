@@ -2,13 +2,15 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import Product from "../../components/Product/Product";
-import { getProductDetailApi } from "../../redux/reducer/productReducer";
+import {
+  changeQuantityDetail,
+  getProductDetailApi,
+} from "../../redux/reducer/productReducer";
 
 export default function Detail() {
   const getId = useParams();
   const dispatch = useDispatch();
   const { productDetail } = useSelector((state) => state.product);
-  console.log(productDetail);
   const getProductDetail = () => {
     const actionThunk = getProductDetailApi(getId.id);
     dispatch(actionThunk);
@@ -35,12 +37,17 @@ export default function Detail() {
   const addToCart = () => {
     let productCart = JSON.parse(localStorage.getItem("productCart"));
     let productCartArr = [];
-    if (productCart?.length > 0) {
-      productCart?.map((item, index) => {
+    if (productCart) {
+      productCart.map((item, index) => {
         productCartArr.push(item);
       });
     }
-    productCartArr.push(productDetail);
+    let prodFind = productCartArr.find((prod) => prod.id === productDetail.id);
+    if (prodFind) {
+      prodFind.quantityCart += productDetail.quantityCart;
+    } else {
+      productCartArr.push(productDetail);
+    }
     localStorage.setItem("productCart", JSON.stringify(productCartArr));
   };
 
@@ -76,13 +83,25 @@ export default function Detail() {
             Price: $ {productDetail.price}
           </span>
           <div className="number-prod d-flex my-2">
-            <button className="fs-6 px-3 btn btn-secondary" id="down">
+            <button
+              className="fs-6 px-3 btn btn-secondary"
+              id="down"
+              onClick={() => {
+                dispatch(changeQuantityDetail(false));
+              }}
+            >
               -
             </button>
             <span id="number" className="fs-4 mx-3">
-              1
+              {productDetail.quantityCart}
             </span>
-            <button className="fs-6 px-3 btn btn-secondary" id="up">
+            <button
+              className="fs-6 px-3 btn btn-secondary"
+              id="up"
+              onClick={() => {
+                dispatch(changeQuantityDetail(true));
+              }}
+            >
               +
             </button>
           </div>

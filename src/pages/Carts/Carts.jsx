@@ -16,13 +16,44 @@ export default function Carts(props) {
   );
   const [dataSource, setDataSource] = useState([]);
 
+  const changeQuantityCart = (act, prodClick) => {
+    let productCart = JSON.parse(localStorage.getItem("productCart"));
+    let productCartArr = [];
+    if (productCart) {
+      productCart.map((item, index) => {
+        productCartArr.push(item);
+      });
+    }
+    let prodFind = productCartArr.find((prod) => prod.id === prodClick.id);
+    if (act) {
+      prodFind.quantityCart += 1;
+    } else {
+      prodFind.quantityCart -= 1;
+      if (prodFind.quantityCart < 1) {
+        productCartArr.splice(prodFind, 1);
+      }
+    }
+    localStorage.setItem("productCart", JSON.stringify(productCartArr));
+  };
+  const deleteProdCart = (idClick) => {
+    let productCart = JSON.parse(localStorage.getItem("productCart"));
+    let productCartArr = [];
+    if (productCart) {
+      productCart.map((item, index) => {
+        productCartArr.push(item);
+      });
+    }
+    let prodFind = productCartArr.find((prod) => prod.id === idClick.id);
+    productCartArr.splice(prodFind, 1);
+    localStorage.setItem("productCart", JSON.stringify(productCartArr));
+  };
+
   useEffect(() => {
     let productCart = JSON.parse(localStorage.getItem("productCart"));
-    console.log(productCart, "111111111111");
-    if (productCart?.length > 0) {
+    if (productCart) {
       setDataSource(productCart);
     }
-  }, []);
+  }, [JSON.parse(localStorage.getItem("productCart"))]);
 
   const columns = [
     {
@@ -57,27 +88,54 @@ export default function Carts(props) {
     },
     {
       title: "quantity",
-      dataIndex: "quantity",
-      key: "quantity",
+      dataIndex: "quantityCart",
+      key: "quantityCart",
+      render: (_value, _records) => {
+        return (
+          <>
+            <button
+              className="btn btn-warning mx-2"
+              onClick={() => {
+                changeQuantityCart(false, _records);
+              }}
+            >
+              -
+            </button>
+            {_records?.quantityCart}
+            <button
+              className="btn btn-warning mx-2"
+              onClick={() => {
+                changeQuantityCart(true, _records);
+              }}
+            >
+              +
+            </button>
+          </>
+        );
+      },
     },
     {
       title: "total",
       dataIndex: "total",
       key: "total",
       render: (_value, _records) => {
-        return <>{_records?.price * _records?.quantity}</>;
+        return <>{_records?.price * _records?.quantityCart}</>;
       },
     },
     {
-      title: "action",
-      dataIndex: "action",
+      title: "",
+      dataIndex: "",
       key: "action",
       render: (_value, _records) => {
         return (
-          <>
-            <Button>Edit</Button>
-            <Button>Delete</Button>
-          </>
+          <button
+            className="btn btn-danger"
+            onClick={() => {
+              deleteProdCart(_records);
+            }}
+          >
+            Delete
+          </button>
         );
       },
     },
