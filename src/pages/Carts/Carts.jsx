@@ -5,7 +5,7 @@ import * as Yup from "yup";
 import { loginApi } from "../../redux/reducer/userReducer";
 import { NavLink } from "react-router-dom";
 import { Divider, Button, Table } from "antd";
-import { Container } from "./Carts.style";
+import { Container, ContainerCount, ButtonAction, Title } from "./Carts.style";
 import { useSelector } from "react-redux";
 import { getOrderApproval } from "../../redux/reducer/userReducer";
 
@@ -57,12 +57,12 @@ export default function Carts(props) {
 
   const columns = [
     {
-      title: "id",
+      title: <Title>ID</Title>,
       dataIndex: "id",
       key: "id",
     },
     {
-      title: "image",
+      title: <Title>IMAGE</Title>,
       dataIndex: "image",
       key: "image",
       render: (_value) => (
@@ -77,45 +77,45 @@ export default function Carts(props) {
       ),
     },
     {
-      title: "name",
+      title: <Title>NAME</Title>,
       dataIndex: "name",
       key: "name",
     },
     {
-      title: "price",
+      title: <Title>PRICE</Title>,
       dataIndex: "price",
       key: "price",
     },
     {
-      title: "quantity",
+      title: <Title>QUANTITY</Title>,
       dataIndex: "quantityCart",
       key: "quantityCart",
       render: (_value, _records) => {
         return (
-          <>
-            <button
-              className="btn btn-warning mx-2"
+          <ContainerCount>
+            <Button
+              className="button-count button-subtract"
               onClick={() => {
                 changeQuantityCart(false, _records);
               }}
             >
               -
-            </button>
+            </Button>
             {_records?.quantityCart}
-            <button
-              className="btn btn-warning mx-2"
+            <Button
+              className="button-count button-add"
               onClick={() => {
                 changeQuantityCart(true, _records);
               }}
             >
               +
-            </button>
-          </>
+            </Button>
+          </ContainerCount>
         );
       },
     },
     {
-      title: "total",
+      title: <Title>TOTAL</Title>,
       dataIndex: "total",
       key: "total",
       render: (_value, _records) => {
@@ -123,19 +123,19 @@ export default function Carts(props) {
       },
     },
     {
-      title: "",
+      title: <Title>ACTION</Title>,
       dataIndex: "",
       key: "action",
       render: (_value, _records) => {
         return (
-          <button
-            className="btn btn-danger"
+          <ButtonAction
+            // className="button-count"
             onClick={() => {
               deleteProdCart(_records);
             }}
           >
-            Delete
-          </button>
+            DELETE
+          </ButtonAction>
         );
       },
     },
@@ -146,7 +146,11 @@ export default function Carts(props) {
       <h2>Carts</h2>
       <Divider plain></Divider>
       <Table dataSource={dataSource} columns={columns} />
-      <Button>SUBMIT ORDER</Button>
+      <div className="div-submit">
+        <ButtonAction style={{ backgroundColor: "#F2994A" }}>
+          SUBMIT ORDER
+        </ButtonAction>
+      </div>
     </Container>
   );
 }
