@@ -1,3 +1,4 @@
+import axios from "axios";
 export const config = {
   setCookie: (name, value, days) => {
     var expires = "";
@@ -37,8 +38,8 @@ export const config = {
     }
     return null;
   },
-  ACCESS_TOKEN: 'accessToken',
-  USER_LOGIN: 'userLogin'
+  ACCESS_TOKEN: "accessToken",
+  USER_LOGIN: "userLogin",
 };
 
 export const {
@@ -51,3 +52,31 @@ export const {
   ACCESS_TOKEN,
   USER_LOGIN,
 } = config;
+
+// const DOMAIN = "https://shop.cyberlearn.vn/api";
+// const TOKEN_CYBERSOFT =
+//   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJCb290Y2FtcCAzMCIsIkhldEhhblN0cmluZyI6IjE3LzAyLzIwMjMiLCJIZXRIYW5UaW1lIjoiMTY3NjU5MjAwMDAwMCIsIm5iZiI6MTY0ODIyNzYwMCwiZXhwIjoxNjc2NzM5NjAwfQ.aK-3RvHXQyu6H2-FFiafeSKR4UMCcRmnuDbTT-XIcUU";
+
+// // Cấu hình request cho tất cả api - reponse cho tất cả kết quả từ api trả về
+
+// // Cấu hình domain gửi đi
+
+// export const http = axios.create({
+//   baseURL: DOMAIN,
+//   timeout: 30000,
+// });
+
+// http.interceptors.request.use(
+//   (config) => {
+//     const token = getStore(ACCESS_TOKEN);
+//     config = { ...config.headers, 
+//       ['Authorization']: 'Bearer ${token}',
+//       ['Tokencybersoft']: TOKEN_CYBERSOFT
+//   };
+//     // config.headers['Content-Type'] = 'application/json';
+//     return config;
+//   },
+//   (error) => {
+//     Promise.reject(error);
+//   }
+// );
