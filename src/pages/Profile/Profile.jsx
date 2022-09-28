@@ -11,10 +11,12 @@ export default function Profile() {
     dispatch(getProfileApi());
   }, []);
   console.log(userLogin);
+
+
+
   return (
-    <div className="container-fluid">
+    <div className="container">
       <div className="d-flex align-items-start">
-        
         <div
           className="nav flex-column nav-pills me-3"
           id="v-pills-tab"
@@ -22,11 +24,11 @@ export default function Profile() {
           aria-orientation="vertical"
         >
           <div>
-          <img src={userLogin?.avatar} className="w-50" alt="..." />
-        </div>
-        <br />
-        <br />
-        <br />
+            <img src={userLogin?.avatar} className="w-50" alt="..." />
+          </div>
+          <br />
+          <br />
+          <br />
           <button
             className="nav-link active w-50"
             id="v-pills-Profile-tab"
@@ -51,9 +53,8 @@ export default function Profile() {
           >
             Order History
           </button>
-          
         </div>
-        <div className="tab-content" id="v-pills-tabContent">
+        <div className="tab-content w-100" id="v-pills-tabContent">
           <div
             className="tab-pane fade show active"
             id="v-pills-Profile"
@@ -61,64 +62,118 @@ export default function Profile() {
             aria-labelledby="v-pills-Profile-tab"
             tabIndex={0}
           >
-            Profile
+            <form className="card" >
+              <div
+                className="card-header bg-dark text-warning"
+                style={{ fontSize: 20, fontWeight: "bold" }}
+              >
+                Profile
+              </div>
+              <div className="card-body row">
+                <div className="col-6">
+                  <div className="form-group">
+                    <p>Email</p>
+                    <input className="form-control" id="id" name="id" />
+                    <p className="text-danger"></p>
+                  </div>
+                  <div className="form-group">
+                    <p>Phone</p>
+                    <input className="form-control" id="name" name="name" />
+                    <p className="text-danger"></p>
+                  </div>
+                </div>
+                <div className="col-6">
+                  <div className="form-group">
+                    <p>Name</p>
+                    <input
+                      data-type="number"
+                      className="form-control"
+                      id="price"
+                      name="price"
+                      type="text"
+                    />
+                    <p className="text-danger"></p>
+                  </div>
+                  <div className="form-group">
+                    <p>Password</p>
+                    <input
+                      data-type="number"
+                      className="form-control"
+                      id="price"
+                      name="price"
+                      type="text"
+                    />
+                    <p className="text-danger"></p>
+                  </div>
+                </div>
+              </div>
+              <div className="card-footer">
+                <button className="btn btn-success mx-2">Create</button>
+                <button
+                  className="btn btn-primary mx-2"
+                  type="submit"
+                  // onClick={() => {
+                  //   this.props.updateProduct(this.state.productInfo);
+                  // }}
+                >
+                  Update
+                </button>
+              </div>
+            </form>
           </div>
           <div
-            className="tab-pane fade w-100"
+            className="tab-pane fade"
             id="v-pills-History"
             role="tabpanel"
             aria-labelledby="v-pills-History-tab"
             tabIndex={0}
           >
             {userLogin?.ordersHistory.map((orderItem, index) => {
-                  return (
-                    <div className="mt-2" key={index}>
-                      <hr />
+              return (
+                <div className="mt-2" key={index}>
+                  <hr />
 
-                      <h3>Order Detail</h3>
-                      <table className="table">
-                        <thead>
-                          <tr>
-                            <th>id</th>
-                            <th>img</th>
-                            <th>name</th>
-                            <th>price</th>
-                            <th>quantity</th>
-                            <th>total</th>
+                  <h3>Order Detail</h3>
+                  <table className="table">
+                    <thead>
+                      <tr>
+                        <th>id</th>
+                        <th>img</th>
+                        <th>name</th>
+                        <th>price</th>
+                        <th>quantity</th>
+                        <th>total</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {orderItem.orderDetail?.map((item, index) => {
+                        return (
+                          <tr key={index}>
+                            <td>{item.id}</td>
+                            <td>
+                              <img
+                                src={item.image}
+                                width={50}
+                                height={50}
+                                style={{ objectFit: "over" }}
+                                alt="..."
+                              />
+                            </td>
+                            <td>{item.name}</td>
+                            <td>{item.price}</td>
+                            <td>{item.quantity}</td>
+                            <td>{item.price * item.quantity}</td>
                           </tr>
-                        </thead>
-                        <tbody>
-                          {orderItem.orderDetail?.map((item, index) => {
-                            return (
-                              <tr key={index}>
-                                <td>{item.id}</td>
-                                <td>
-                                  <img
-                                    src={item.image}
-                                    width={50}
-                                    height={50}
-                                    style={{ objectFit: "over" }}
-                                    alt="..."
-                                  />
-                                </td>
-                                <td>{item.name}</td>
-                                <td>{item.price}</td>
-                                <td>{item.quantity}</td>
-                                <td>{item.status}</td>
-                              </tr>
-                            );
-                          })}
-                        </tbody>
-                      </table>
-                    </div>
-                  );
-                })}   
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              );
+            })}
           </div>
-          
         </div>
       </div>
-
-      
     </div>
   );
 }
