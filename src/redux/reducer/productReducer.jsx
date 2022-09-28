@@ -3,8 +3,9 @@ import axios from "axios";
 
 const initialState = {
   arrProduct: [],
-  productDetail: [],
+  productDetail: {},
   productSearch: [],
+  arrCart: [],
 };
 
 const productReducer = createSlice({
@@ -15,16 +16,30 @@ const productReducer = createSlice({
       state.arrProduct = action.payload;
     },
     getProductDetailAction: (state, action) => {
-      state.productDetail = action.payload;
+      state.productDetail = { ...action.payload, quantityCart: 1 };
     },
     getProductSearchAction: (state, action) => {
-      state.productSearch = action.payload
-    }
+      state.productSearch = action.payload;
+    },
+    changeQuantityDetail: (state, action) => {
+      if (action.payload) {
+        state.productDetail.quantityCart += 1;
+      } else {
+        state.productDetail.quantityCart -= 1;
+        if (state.productDetail.quantityCart <= 1) {
+          state.productDetail.quantityCart = 1;
+        }
+      }
+    },
   },
 });
 
-export const { getProductAction, getProductDetailAction, getProductSearchAction  } =
-  productReducer.actions;
+export const {
+  getProductAction,
+  getProductDetailAction,
+  getProductSearchAction,
+  changeQuantityDetail,
+} = productReducer.actions;
 
 export default productReducer.reducer;
 

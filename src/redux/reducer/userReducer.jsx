@@ -45,7 +45,7 @@ export const loginApi = (userLogin) => {
 
       //Sau khi đăng nhập thành công => lưu dữ liệu vào localstorage hoặc cookie
       alert(result.data.message);
-      console.log(result);
+      // console.log(result);
       setCookie(ACCESS_TOKEN, result.data.content.accessToken, 30);
       setStore(ACCESS_TOKEN, result.data.content.accessToken);
       // Chuyển hướng về profile , trang quên mật khẩu
@@ -102,7 +102,7 @@ export const getOrderApproval = (accessToken = getStore(ACCESS_TOKEN)) => {
       // lưu vào Storage
       // setStoreJson(USER_LOGIN, result.data.content);
     } catch (err) {
-      alert(err.response.data.message);
+      // alert(err.response.data.message);
       console.log(err);
     }
   };
