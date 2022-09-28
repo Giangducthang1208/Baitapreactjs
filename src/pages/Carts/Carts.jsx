@@ -184,10 +184,10 @@ export default function Carts(props) {
     <Container>
       <h2>Carts</h2>
       <Divider plain></Divider>
-      <Table dataSource={dataSource} columns={columns} />
+      <Table dataSource={dataSource} columns={columns} pagination={false} />
       <div className="div-submit">
         <ButtonAction
-          style={{ backgroundColor: "#F2994A" }}
+          style={{ backgroundColor: "#F2994A", fontWeight: "bold" }}
           onClick={submitOrder}
         >
           SUBMIT ORDER
