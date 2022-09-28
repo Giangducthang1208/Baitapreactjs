@@ -12,8 +12,6 @@ export default function Profile() {
   }, []);
   console.log(userLogin);
 
-
-
   return (
     <div className="container">
       <div className="d-flex align-items-start">
@@ -62,7 +60,7 @@ export default function Profile() {
             aria-labelledby="v-pills-Profile-tab"
             tabIndex={0}
           >
-            <form className="card" >
+            <form className="card">
               <div
                 className="card-header bg-dark text-warning"
                 style={{ fontSize: 20, fontWeight: "bold" }}
@@ -108,16 +106,20 @@ export default function Profile() {
                 </div>
               </div>
               <div className="card-footer">
-                <button className="btn btn-success mx-2">Create</button>
-                <button
-                  className="btn btn-primary mx-2"
-                  type="submit"
-                  // onClick={() => {
-                  //   this.props.updateProduct(this.state.productInfo);
-                  // }}
-                >
-                  Update
-                </button>
+                  <p>Gender</p>
+                  <select>
+                    <option>Female</option>
+                    <option>Male</option>
+                  </select>
+                  <button
+                    className="btn btn-primary mx-2"
+                    type="submit"
+                    // onClick={() => {
+                    //   this.props.updateProduct(this.state.productInfo);
+                    // }}
+                  >
+                    Update
+                  </button>
               </div>
             </form>
           </div>
