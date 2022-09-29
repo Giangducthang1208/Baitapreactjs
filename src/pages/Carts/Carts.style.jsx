@@ -8,6 +8,9 @@ export const Container = styled.div`
     justify-content: right;
     margin-top: 20px;
   }
+  .div-img {
+    text-align: center;
+  }
   .ant-table-thead > tr > th {
     background: #d9d9d9;
   }

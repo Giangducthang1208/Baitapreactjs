@@ -109,7 +109,7 @@ export default function Detail() {
                 return Notification({
                   type: "error",
                   message: "Lỗi",
-                  description: "Bạn phải đăng nhập",
+                  description: "Bạn phải đăng nhập!",
                 });
               } else {
                 addToCart();

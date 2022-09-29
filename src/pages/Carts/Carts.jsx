@@ -7,6 +7,7 @@ import { NavLink } from "react-router-dom";
 import { Divider, Button, Table, notification } from "antd";
 import { Container, ContainerCount, ButtonAction, Title } from "./Carts.style";
 import { useSelector } from "react-redux";
+import empty_cart from "../../assets/img/empty-cart.gif";
 import { getOrderApproval } from "../../redux/reducer/userReducer";
 import {
   changeQuantityCartAction,
@@ -78,10 +79,13 @@ export default function Carts(props) {
 
   const columns = [
     {
+      title: "#",
+      dataIndex: "index",
       key: "index",
+      render: (value, item, index) => index + 1,
     },
     {
-      title: "id",
+      title: "ID",
       dataIndex: "id",
       key: "id",
     },
@@ -170,15 +174,24 @@ export default function Carts(props) {
     <Container>
       <h2>Carts</h2>
       <Divider plain></Divider>
-      <Table dataSource={dataSource} columns={columns} pagination={false} />
-      <div className="div-submit">
-        <ButtonAction
-          style={{ backgroundColor: "#F2994A", fontWeight: "bold" }}
-          onClick={submitOrder}
-        >
-          SUBMIT ORDER
-        </ButtonAction>
-      </div>
+      {dataSource?.length > 0 ? (
+        <>
+          <Table dataSource={dataSource} columns={columns} pagination={false} />
+          <div className="div-submit">
+            <ButtonAction
+              style={{ backgroundColor: "#F2994A", fontWeight: "bold" }}
+              onClick={submitOrder}
+            >
+              SUBMIT ORDER
+            </ButtonAction>
+          </div>
+        </>
+      ) : (
+        <div className="div-img">
+          <h2>Không có sản phẩm nào trong giỏ hàng.</h2>
+          <img src={empty_cart} alt="" />
+        </div>
+      )}
     </Container>
   );
 }
