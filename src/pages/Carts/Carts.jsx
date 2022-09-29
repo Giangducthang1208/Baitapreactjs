@@ -11,6 +11,7 @@ import { getOrderApproval } from "../../redux/reducer/userReducer";
 import {
   changeQuantityCartAction,
   deleteProdCartAction,
+  submitOrderAction,
 } from "../../redux/reducer/productReducer";
 import axios from "axios";
 import { Notification } from "../../components/Notification/Notification";
@@ -56,6 +57,7 @@ export default function Carts(props) {
             description: "Đặt hàng thành công!",
           });
           setDataSource([]);
+          dispatch(submitOrderAction());
           localStorage.removeItem("productCart");
         })
         .catch(function (error) {

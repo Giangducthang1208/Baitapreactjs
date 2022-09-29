@@ -106,7 +106,11 @@ export default function Detail() {
             className="btn btn-warning mt-2 fs-4"
             onClick={() => {
               if (userLogin == null) {
-                return alert("bạn phải đăng nhập để thêm vào giỏ hàng");
+                return Notification({
+                  type: "error",
+                  message: "Lỗi",
+                  description: "Bạn phải đăng nhập",
+                });
               } else {
                 addToCart();
               }

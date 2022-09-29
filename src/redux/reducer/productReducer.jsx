@@ -64,10 +64,14 @@ const productReducer = createSlice({
       }
       localStorage.setItem("productCart", JSON.stringify(state.arrCart));
     },
+    submitOrderAction: (state, action) => {
+      state.arrCart = []
+    }
   },
 });
 
 export const {
+  submitOrderAction,
   changeQuantityCartAction,
   deleteProdCartAction,
   localToState,

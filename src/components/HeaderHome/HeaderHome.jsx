@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { localToState } from "../../redux/reducer/productReducer";
+import { Notification } from "../Notification/Notification";
 
 export default function HeaderHome() {
   const { arrCart } = useSelector((state) => state.product);
@@ -25,7 +26,11 @@ export default function HeaderHome() {
         <NavLink
           to="/login"
           onClick={() => {
-            alert("Bạn phải đăng nhập");
+            Notification({
+              type: "error",
+              message: "Lỗi",
+              description: "Bạn phải đăng nhập",
+            });
           }}
         >
           Cart
