@@ -79,10 +79,13 @@ export default function Carts(props) {
 
   const columns = [
     {
+      title: "#",
+      dataIndex: "index",
       key: "index",
+      render: (value, item, index) => index + 1,
     },
     {
-      title: "id",
+      title: "ID",
       dataIndex: "id",
       key: "id",
     },
