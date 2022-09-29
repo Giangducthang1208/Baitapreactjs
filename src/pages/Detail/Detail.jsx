@@ -1,26 +1,25 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { render } from "react-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import Product from "../../components/Product/Product";
 import {
+  addToCartAction,
   changeQuantityDetail,
   getProductDetailApi,
 } from "../../redux/reducer/productReducer";
 import { Notification } from "../../components/Notification/Notification";
 
 export default function Detail() {
-  const getId = useParams();
-  const dispatch = useDispatch();
+  const { userLogin } = useSelector((state) => state.userReducer);
   const { productDetail } = useSelector((state) => state.product);
+  const dispatch = useDispatch();
+  const getId = useParams();
+
   const getProductDetail = () => {
     const actionThunk = getProductDetailApi(getId.id);
     dispatch(actionThunk);
   };
-
-  useEffect(() => {
-    getProductDetail();
-    window.scrollTo(0, 0);
-  }, [getId.id]);
 
   const renderSizeProduct = () => {
     let sizeProduct = productDetail.size;
@@ -36,27 +35,18 @@ export default function Detail() {
   };
 
   const addToCart = () => {
-    let productCart = JSON.parse(localStorage.getItem("productCart"));
-    let productCartArr = [];
-    if (productCart) {
-      productCart.map((item, index) => {
-        productCartArr.push(item);
-      });
-    }
-    let prodFind = productCartArr.find((prod) => prod.id === productDetail.id);
-    if (prodFind) {
-      prodFind.quantityCart += productDetail.quantityCart;
-    } else {
-      productCartArr.push(productDetail);
-    }
-    localStorage.setItem("productCart", JSON.stringify(productCartArr));
-
+    dispatch(addToCartAction(productDetail));
     Notification({
       type: "success",
       message: "Thành công",
       description: "Thêm vào giỏ hàng thành công!",
     });
   };
+
+  useEffect(() => {
+    getProductDetail();
+    window.scrollTo(0, 0);
+  }, [getId.id]);
 
   return (
     <>
@@ -112,7 +102,20 @@ export default function Detail() {
               +
             </button>
           </div>
-          <button className="btn btn-warning mt-2 fs-4" onClick={addToCart}>
+          <button
+            className="btn btn-warning mt-2 fs-4"
+            onClick={() => {
+              if (userLogin == null) {
+                return Notification({
+                  type: "error",
+                  message: "Lỗi",
+                  description: "Bạn phải đăng nhập!",
+                });
+              } else {
+                addToCart();
+              }
+            }}
+          >
             Add to cart
           </button>
         </div>

@@ -10,6 +10,7 @@ import {
   USER_LOGIN,
 } from "../../util/tools";
 import { history } from "../../index";
+import { Notification } from "../../components/Notification/Notification";
 
 const initialState = {
   userLogin: getStoreJson(USER_LOGIN), // có thể null or object
@@ -44,13 +45,18 @@ export const loginApi = (userLogin) => {
       });
 
       //Sau khi đăng nhập thành công => lưu dữ liệu vào localstorage hoặc cookie
-      alert(result.data.message);
+      
       // console.log(result);
       setCookie(ACCESS_TOKEN, result.data.content.accessToken, 30);
       setStore(ACCESS_TOKEN, result.data.content.accessToken);
       // Chuyển hướng về profile , trang quên mật khẩu
       history.push("/profile");
 
+      Notification({
+        type: "success",
+        message: "Thành công",
+        description: "Đăng nhập thành công!",
+      });
       // Sau khi đăng nhập thành công thì dispatch action getProfile
       dispatch(getProfileApi());
       // dispatch(getOrderApproval());

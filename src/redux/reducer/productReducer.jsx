@@ -6,6 +6,7 @@ const initialState = {
   productDetail: {},
   productSearch: [],
   arrCart: [],
+  categoryId: [],
 };
 
 const productReducer = createSlice({
@@ -17,6 +18,9 @@ const productReducer = createSlice({
     },
     getProductDetailAction: (state, action) => {
       state.productDetail = { ...action.payload, quantityCart: 1 };
+    },
+    getIdCategoryAction: (state, action) => {
+      state.categoryId = action.payload;
     },
     getProductSearchAction: (state, action) => {
       state.productSearch = action.payload;
@@ -31,10 +35,52 @@ const productReducer = createSlice({
         }
       }
     },
+    addToCartAction: (state, action) => {
+      let prodDetail = action.payload;
+      let prodFind = state.arrCart?.find((prod) => prod.id === prodDetail.id);
+      if (prodFind) {
+        prodFind.quantityCart += prodDetail.quantityCart;
+      } else {
+        state.arrCart?.push(prodDetail);
+      }
+      localStorage.setItem("productCart", JSON.stringify(state.arrCart));
+      console.log(state.arrCart);
+    },
+    localToState: (state, action) => {
+      state.arrCart = action.payload;
+    },
+    deleteProdCartAction: (state, action) => {
+      let prodClick = action.payload;
+      let prodFind = state.arrCart.filter((prod) => prod.id !== prodClick.id);
+      localStorage.setItem("productCart", JSON.stringify(prodFind));
+      state.arrCart = prodFind;
+    },
+    changeQuantityCartAction: (state, action) => {
+      let { prodClick, act } = action.payload;
+      let prodFind = state.arrCart.find((prod) => prod.id === prodClick.id);
+      if (act) {
+        prodFind.quantityCart += 1;
+      } else {
+        prodFind.quantityCart -= 1;
+        if (prodFind.quantityCart < 1) {
+          state.arrCart.splice(prodFind, 1);
+        }
+      }
+      localStorage.setItem("productCart", JSON.stringify(state.arrCart));
+    },
+    submitOrderAction: (state, action) => {
+      state.arrCart = [];
+    },
   },
 });
 
 export const {
+  getIdCategoryAction,
+  submitOrderAction,
+  changeQuantityCartAction,
+  deleteProdCartAction,
+  localToState,
+  addToCartAction,
   getProductAction,
   getProductDetailAction,
   getProductSearchAction,
@@ -70,3 +116,4 @@ export const getProductDetailApi = (id) => {
     }
   };
 };
+

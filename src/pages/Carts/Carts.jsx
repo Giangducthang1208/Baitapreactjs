@@ -7,55 +7,36 @@ import { NavLink } from "react-router-dom";
 import { Divider, Button, Table, notification } from "antd";
 import { Container, ContainerCount, ButtonAction, Title } from "./Carts.style";
 import { useSelector } from "react-redux";
+import empty_cart from "../../assets/img/empty-cart.gif";
 import { getOrderApproval } from "../../redux/reducer/userReducer";
+import {
+  changeQuantityCartAction,
+  deleteProdCartAction,
+  submitOrderAction,
+} from "../../redux/reducer/productReducer";
 import axios from "axios";
 import { Notification } from "../../components/Notification/Notification";
 
 export default function Carts(props) {
   const dispatch = useDispatch();
-  const { userLogin, orderApproval } = useSelector(
-    (state) => state.userReducer
-  );
+  const { arrCart } = useSelector((state) => state.product);
+  const { userLogin } = useSelector((state) => state.userReducer);
   const [dataSource, setDataSource] = useState([]);
 
   const changeQuantityCart = (act, prodClick) => {
-    let productCart = JSON.parse(localStorage.getItem("productCart"));
-    let productCartArr = [];
-    if (productCart) {
-      productCart.map((item, index) => {
-        productCartArr.push(item);
-      });
-    }
-    let prodFind = productCartArr.find((prod) => prod.id === prodClick.id);
-    if (act) {
-      prodFind.quantityCart += 1;
-    } else {
-      prodFind.quantityCart -= 1;
-      if (prodFind.quantityCart < 1) {
-        productCartArr.splice(prodFind, 1);
-      }
-    }
-    localStorage.setItem("productCart", JSON.stringify(productCartArr));
+    const action = {
+      act: act,
+      prodClick: prodClick,
+    };
+    dispatch(changeQuantityCartAction(action));
   };
-  const deleteProdCart = (idClick) => {
-    let productCart = JSON.parse(localStorage.getItem("productCart"));
-    let productCartArr = [];
-    if (productCart) {
-      productCart.map((item, index) => {
-        productCartArr.push(item);
-      });
-    }
-    let prodFind = productCartArr.find((prod) => prod.id === idClick.id);
-    productCartArr.splice(prodFind, 1);
-    localStorage.setItem("productCart", JSON.stringify(productCartArr));
+  const deleteProdCart = (prodClick) => {
+    dispatch(deleteProdCartAction(prodClick));
   };
 
   useEffect(() => {
-    let productCart = JSON.parse(localStorage.getItem("productCart"));
-    if (productCart) {
-      setDataSource(productCart);
-    }
-  }, [JSON.parse(localStorage.getItem("productCart"))]);
+    setDataSource(arrCart);
+  }, [arrCart]);
 
   const submitOrder = () => {
     let orderDetail = dataSource?.map((item, index) => {
@@ -77,6 +58,7 @@ export default function Carts(props) {
             description: "Đặt hàng thành công!",
           });
           setDataSource([]);
+          dispatch(submitOrderAction());
           localStorage.removeItem("productCart");
         })
         .catch(function (error) {
@@ -97,7 +79,13 @@ export default function Carts(props) {
 
   const columns = [
     {
-      title: <Title>ID</Title>,
+      title: "#",
+      dataIndex: "index",
+      key: "index",
+      render: (value, item, index) => index + 1,
+    },
+    {
+      title: "ID",
       dataIndex: "id",
       key: "id",
     },
@@ -159,7 +147,9 @@ export default function Carts(props) {
       dataIndex: "total",
       key: "total",
       render: (_value, _records) => {
-        return <>{_records?.price * _records?.quantityCart}</>;
+        return (
+          <>{(_records?.price * _records?.quantityCart).toLocaleString()}</>
+        );
       },
     },
     {
@@ -184,15 +174,24 @@ export default function Carts(props) {
     <Container>
       <h2>Carts</h2>
       <Divider plain></Divider>
-      <Table dataSource={dataSource} columns={columns} pagination={false} />
-      <div className="div-submit">
-        <ButtonAction
-          style={{ backgroundColor: "#F2994A", fontWeight: "bold" }}
-          onClick={submitOrder}
-        >
-          SUBMIT ORDER
-        </ButtonAction>
-      </div>
+      {dataSource?.length > 0 ? (
+        <>
+          <Table dataSource={dataSource} columns={columns} pagination={false} />
+          <div className="div-submit">
+            <ButtonAction
+              style={{ backgroundColor: "#F2994A", fontWeight: "bold" }}
+              onClick={submitOrder}
+            >
+              SUBMIT ORDER
+            </ButtonAction>
+          </div>
+        </>
+      ) : (
+        <div className="div-img">
+          <h2>Không có sản phẩm nào trong giỏ hàng.</h2>
+          <img src={empty_cart} alt="" />
+        </div>
+      )}
     </Container>
   );
 }
