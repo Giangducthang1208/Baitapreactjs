@@ -6,6 +6,7 @@ const initialState = {
   productDetail: {},
   productSearch: [],
   arrCart: [],
+  categoryId: [],
 };
 
 const productReducer = createSlice({
@@ -17,6 +18,9 @@ const productReducer = createSlice({
     },
     getProductDetailAction: (state, action) => {
       state.productDetail = { ...action.payload, quantityCart: 1 };
+    },
+    getIdCategoryAction: (state, action) => {
+      state.categoryId = action.payload;
     },
     getProductSearchAction: (state, action) => {
       state.productSearch = action.payload;
@@ -52,7 +56,7 @@ const productReducer = createSlice({
       state.arrCart = prodFind;
     },
     changeQuantityCartAction: (state, action) => {
-      let {prodClick, act} = action.payload
+      let { prodClick, act } = action.payload;
       let prodFind = state.arrCart.find((prod) => prod.id === prodClick.id);
       if (act) {
         prodFind.quantityCart += 1;
@@ -65,12 +69,13 @@ const productReducer = createSlice({
       localStorage.setItem("productCart", JSON.stringify(state.arrCart));
     },
     submitOrderAction: (state, action) => {
-      state.arrCart = []
-    }
+      state.arrCart = [];
+    },
   },
 });
 
 export const {
+  getIdCategoryAction,
   submitOrderAction,
   changeQuantityCartAction,
   deleteProdCartAction,
@@ -111,3 +116,4 @@ export const getProductDetailApi = (id) => {
     }
   };
 };
+
