@@ -8,54 +8,35 @@ import { Divider, Button, Table } from "antd";
 import { Container } from "./Carts.style";
 import { useSelector } from "react-redux";
 import { getOrderApproval } from "../../redux/reducer/userReducer";
+import {
+  changeQuantityCartAction,
+  deleteProdCartAction,
+} from "../../redux/reducer/productReducer";
 
 export default function Carts(props) {
   const dispatch = useDispatch();
-  const { userLogin, orderApproval } = useSelector(
-    (state) => state.userReducer
-  );
+  const { arrCart } = useSelector((state) => state.product);
   const [dataSource, setDataSource] = useState([]);
 
   const changeQuantityCart = (act, prodClick) => {
-    let productCart = JSON.parse(localStorage.getItem("productCart"));
-    let productCartArr = [];
-    if (productCart) {
-      productCart.map((item, index) => {
-        productCartArr.push(item);
-      });
-    }
-    let prodFind = productCartArr.find((prod) => prod.id === prodClick.id);
-    if (act) {
-      prodFind.quantityCart += 1;
-    } else {
-      prodFind.quantityCart -= 1;
-      if (prodFind.quantityCart < 1) {
-        productCartArr.splice(prodFind, 1);
-      }
-    }
-    localStorage.setItem("productCart", JSON.stringify(productCartArr));
+    const action = {
+      act: act,
+      prodClick: prodClick,
+    };
+    dispatch(changeQuantityCartAction(action));
   };
-  const deleteProdCart = (idClick) => {
-    let productCart = JSON.parse(localStorage.getItem("productCart"));
-    let productCartArr = [];
-    if (productCart) {
-      productCart.map((item, index) => {
-        productCartArr.push(item);
-      });
-    }
-    let prodFind = productCartArr.find((prod) => prod.id === idClick.id);
-    productCartArr.splice(prodFind, 1);
-    localStorage.setItem("productCart", JSON.stringify(productCartArr));
+  const deleteProdCart = (prodClick) => {
+    dispatch(deleteProdCartAction(prodClick));
   };
 
   useEffect(() => {
-    let productCart = JSON.parse(localStorage.getItem("productCart"));
-    if (productCart) {
-      setDataSource(productCart);
-    }
-  }, [JSON.parse(localStorage.getItem("productCart"))]);
+    setDataSource(arrCart);
+  }, [arrCart]);
 
   const columns = [
+    {
+      key: "index",
+    },
     {
       title: "id",
       dataIndex: "id",
@@ -119,7 +100,9 @@ export default function Carts(props) {
       dataIndex: "total",
       key: "total",
       render: (_value, _records) => {
-        return <>{_records?.price * _records?.quantityCart}</>;
+        return (
+          <>{(_records?.price * _records?.quantityCart).toLocaleString()}</>
+        );
       },
     },
     {

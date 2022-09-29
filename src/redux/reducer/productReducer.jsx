@@ -31,10 +31,47 @@ const productReducer = createSlice({
         }
       }
     },
+    addToCartAction: (state, action) => {
+      let prodDetail = action.payload;
+      let prodFind = state.arrCart.find((prod) => prod.id === prodDetail.id);
+      if (prodFind) {
+        prodFind.quantityCart += prodDetail.quantityCart;
+      } else {
+        state.arrCart.push(prodDetail);
+      }
+      localStorage.setItem("productCart", JSON.stringify(state.arrCart));
+      console.log(state.arrCart);
+    },
+    localToState: (state, action) => {
+      state.arrCart = action.payload;
+    },
+    deleteProdCartAction: (state, action) => {
+      let prodClick = action.payload;
+      let prodFind = state.arrCart.filter((prod) => prod.id !== prodClick.id);
+      localStorage.setItem("productCart", JSON.stringify(prodFind));
+      state.arrCart = prodFind;
+    },
+    changeQuantityCartAction: (state, action) => {
+      let {prodClick, act} = action.payload
+      let prodFind = state.arrCart.find((prod) => prod.id === prodClick.id);
+      if (act) {
+        prodFind.quantityCart += 1;
+      } else {
+        prodFind.quantityCart -= 1;
+        if (prodFind.quantityCart < 1) {
+          state.arrCart.splice(prodFind, 1);
+        }
+      }
+      localStorage.setItem("productCart", JSON.stringify(state.arrCart));
+    },
   },
 });
 
 export const {
+  changeQuantityCartAction,
+  deleteProdCartAction,
+  localToState,
+  addToCartAction,
   getProductAction,
   getProductDetailAction,
   getProductSearchAction,
