@@ -12,6 +12,8 @@ export default function Profile() {
   }, []);
   console.log(userLogin);
 
+  
+
   return (
     <div className="container">
       <div className="d-flex align-items-start">
@@ -71,12 +73,12 @@ export default function Profile() {
                 <div className="col-6">
                   <div className="form-group">
                     <p>Email</p>
-                    <input className="form-control" id="id" name="id" />
+                    <input className="form-control" id="id" name="id" value={userLogin.email} />
                     <p className="text-danger"></p>
                   </div>
                   <div className="form-group">
                     <p>Phone</p>
-                    <input className="form-control" id="name" name="name" />
+                    <input className="form-control" id="name" name="name" value={userLogin.phone} />
                     <p className="text-danger"></p>
                   </div>
                 </div>
@@ -89,6 +91,7 @@ export default function Profile() {
                       id="price"
                       name="price"
                       type="text"
+                      value={userLogin.name}
                     />
                     <p className="text-danger"></p>
                   </div>
@@ -99,7 +102,8 @@ export default function Profile() {
                       className="form-control"
                       id="price"
                       name="price"
-                      type="text"
+                      type="password"
+                      value={userLogin.password}
                     />
                     <p className="text-danger"></p>
                   </div>
