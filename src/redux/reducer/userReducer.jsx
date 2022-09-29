@@ -104,10 +104,4 @@ export const registerApi = (user) => {
   };
 };
 
-// export const updateProfile = (userUpdate) =>{
-//   return async (dispatch) => {
-//     try{
-//       const result = awa
-//     }
-//   }
-// }
+

@@ -131,22 +131,21 @@ export default function Profile() {
             tabIndex={0}
           >
             <h3>Order Detail</h3>
-                <div className="mt-2">
-
-                  <table className="table">
-                    <thead>
-                      <tr>
-                        <th>Order id</th>
-                        <th>img</th>
-                        <th>name</th>
-                        <th>price</th>
-                        <th>quantity</th>
-                        <th>day order</th>
-                        <th>total</th>
-                      </tr>
-                    </thead>
-            {userLogin?.ordersHistory.map((orderItem, index) => {
-              return (
+            <div className="mt-2">
+              <table className="table">
+                <thead>
+                  <tr>
+                    <th>Order id</th>
+                    <th>img</th>
+                    <th>name</th>
+                    <th>price</th>
+                    <th>quantity</th>
+                    <th>day order</th>
+                    <th>total</th>
+                  </tr>
+                </thead>
+                {userLogin?.ordersHistory.map((orderItem, index) => {
+                  return (
                     <tbody key={index}>
                       {orderItem.orderDetail?.map((item, index) => {
                         return (
@@ -165,15 +164,17 @@ export default function Profile() {
                             <td>{item.price.toLocaleString()}</td>
                             <td>{item.quantity}</td>
                             <td>{orderItem.date}</td>
-                            <td>{(item.price * item.quantity).toLocaleString()}</td>
+                            <td>
+                              {(item.price * item.quantity).toLocaleString()}
+                            </td>
                           </tr>
                         );
                       })}
                     </tbody>
-              );
-            })}
-            </table>
-          </div>
+                  );
+                })}
+              </table>
+            </div>
           </div>
         </div>
       </div>
