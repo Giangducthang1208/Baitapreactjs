@@ -36,7 +36,11 @@ export default function Detail() {
 
   const addToCart = () => {
     dispatch(addToCartAction(productDetail));
-    alert("Thêm vào giỏ hàng thành công ");
+    Notification({
+      type: "success",
+      message: "Thành công",
+      description: "Thêm vào giỏ hàng thành công!",
+    });
   };
 
   useEffect(() => {

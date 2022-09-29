@@ -33,11 +33,11 @@ const productReducer = createSlice({
     },
     addToCartAction: (state, action) => {
       let prodDetail = action.payload;
-      let prodFind = state.arrCart.find((prod) => prod.id === prodDetail.id);
+      let prodFind = state.arrCart?.find((prod) => prod.id === prodDetail.id);
       if (prodFind) {
         prodFind.quantityCart += prodDetail.quantityCart;
       } else {
-        state.arrCart.push(prodDetail);
+        state.arrCart?.push(prodDetail);
       }
       localStorage.setItem("productCart", JSON.stringify(state.arrCart));
       console.log(state.arrCart);

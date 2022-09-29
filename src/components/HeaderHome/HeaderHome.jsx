@@ -21,20 +21,27 @@ export default function HeaderHome() {
 
   const renderCartNavItem = () => {
     if (userLogin == null) {
-      return <NavLink to="/login" onClick={() => {
-        alert("Bạn phải đăng nhập")
-      }}>Cart</NavLink>;
+      return (
+        <NavLink
+          to="/login"
+          onClick={() => {
+            alert("Bạn phải đăng nhập");
+          }}
+        >
+          Cart
+        </NavLink>
+      );
     } else {
-      return <NavLink to="/carts">Cart ( {arrCart.length} )</NavLink>;
+      return <NavLink to="/carts">Cart ( {arrCart?.length} )</NavLink>;
     }
   };
 
   useEffect(() => {
-    let localProd = JSON.parse(localStorage.getItem("productCart"))
+    let localProd = JSON.parse(localStorage.getItem("productCart"));
     if (localProd) {
-      dispatch(localToState()) 
+      dispatch(localToState(JSON.parse(localStorage.getItem("productCart"))));
     }
-  },[]);
+  }, []);
 
   return (
     <div className="header" id="header">

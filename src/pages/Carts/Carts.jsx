@@ -18,6 +18,7 @@ import { Notification } from "../../components/Notification/Notification";
 export default function Carts(props) {
   const dispatch = useDispatch();
   const { arrCart } = useSelector((state) => state.product);
+  const { userLogin } = useSelector((state) => state.userReducer);
   const [dataSource, setDataSource] = useState([]);
 
   const changeQuantityCart = (act, prodClick) => {
