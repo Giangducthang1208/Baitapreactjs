@@ -41,9 +41,8 @@ export default function Register() {
     },
   });
   return (
-    <section
+    <div
       id="register"
-      className="vh-100"
       style={{ backgroundColor: "#fff" }}
     >
       <div className="container h-100">
@@ -150,8 +149,8 @@ export default function Register() {
                             name="gender"
                             onChange={form.handleChange}
                           >
-                            <option value={true}>Female</option>
-                            <option value={false}>Male</option>
+                            <option>Female</option>
+                            <option>Male</option>
                           </select>
                         </div>
                       </div>
@@ -178,6 +177,6 @@ export default function Register() {
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 }

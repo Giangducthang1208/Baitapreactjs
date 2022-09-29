@@ -1,18 +1,52 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
+import { localToState } from "../../redux/reducer/productReducer";
+import { Notification } from "../Notification/Notification";
 
 export default function HeaderHome() {
+  const { arrCart } = useSelector((state) => state.product);
   const { userLogin } = useSelector((state) => state.userReducer);
+  const dispatch = useDispatch();
 
   const renderLoginNavItem = () => {
     if (userLogin == null) {
       return <NavLink to="/login">Login</NavLink>;
     }
-    return <NavLink to="/profile"><i className="fa-solid fa-user"></i> {userLogin.name}</NavLink>;
+    return (
+      <NavLink to="/profile">
+        <i className="fa-solid fa-user"></i> {userLogin.name}
+      </NavLink>
+    );
   };
 
-  // const count = return
+  const renderCartNavItem = () => {
+    if (userLogin == null) {
+      return (
+        <NavLink
+          to="/login"
+          onClick={() => {
+            Notification({
+              type: "error",
+              message: "Lỗi",
+              description: "Bạn phải đăng nhập",
+            });
+          }}
+        >
+          Cart
+        </NavLink>
+      );
+    } else {
+      return <NavLink to="/carts">Cart ( {arrCart?.length} )</NavLink>;
+    }
+  };
+
+  useEffect(() => {
+    let localProd = JSON.parse(localStorage.getItem("productCart"));
+    if (localProd) {
+      dispatch(localToState(JSON.parse(localStorage.getItem("productCart"))));
+    }
+  }, []);
 
   return (
     <div className="header" id="header">
@@ -25,16 +59,16 @@ export default function HeaderHome() {
         <div className="category">
           <ul className="d-flex">
             <li className="mx-2 fs-5">
-              <NavLink to='/home'>Home</NavLink>
+              <NavLink to="/home">Home</NavLink>
             </li>
             <li className="mx-2 fs-5">
-              <NavLink to='/men'>Men</NavLink>
+              <NavLink to="/men">Men</NavLink>
             </li>
             <li className="mx-2 fs-5">
-              <NavLink to='woman'>Woman</NavLink>
+              <NavLink to="woman">Woman</NavLink>
             </li>
             <li className="mx-2 fs-5">
-              <NavLink to='sport'>Sport</NavLink>
+              <NavLink to="sport">Sport</NavLink>
             </li>
           </ul>
         </div>
@@ -44,18 +78,8 @@ export default function HeaderHome() {
               <i className="fa fa-magnifying-glass fs-5 "></i>
             </NavLink>
           </div>
-          <div className="cart mx-2">
-            <NavLink to="/carts">
-              {/* <Badge count={() => 1}>Cart</Badge> */}
-              Cart
-            </NavLink>
-          </div>
-          <div className="login mx-2">
-            <NavLink to="/login">{renderLoginNavItem()}</NavLink>
-          </div>
-          <div className="register mx-2">
-            <NavLink to="/register"></NavLink>
-          </div>
+          <div className="cart mx-2">{renderCartNavItem()}</div>
+          <div className="login mx-2">{renderLoginNavItem()}</div>
         </div>
       </div>
     </div>
