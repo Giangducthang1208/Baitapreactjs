@@ -13,7 +13,7 @@ import { history } from "../../index";
 
 const initialState = {
   userLogin: getStoreJson(USER_LOGIN), // có thể null or object
-  orderApproval: null,
+  // orderApproval: null,
 };
 
 const userReducer = createSlice({
@@ -23,13 +23,13 @@ const userReducer = createSlice({
     getProfileAction: (state, action) => {
       state.userLogin = action.payload;
     },
-    getOrderApprovalAction: (state, action) => {
-      state.orderApproval = action.payload;
-    },
+    // getOrderApprovalAction: (state, action) => {
+    //   state.orderApproval = action.payload;
+    // },
   },
 });
 
-export const { getProfileAction, getOrderApprovalAction } = userReducer.actions;
+export const { getProfileAction } = userReducer.actions;
 
 export default userReducer.reducer;
 
@@ -53,7 +53,7 @@ export const loginApi = (userLogin) => {
 
       // Sau khi đăng nhập thành công thì dispatch action getProfile
       dispatch(getProfileApi());
-      dispatch(getOrderApproval());
+      // dispatch(getOrderApproval());
     } catch (err) {
       alert(err.response.data.message);
       console.log(err);
@@ -83,30 +83,6 @@ export const getProfileApi = (accessToken = getStore(ACCESS_TOKEN)) => {
   };
 };
 
-export const getOrderApproval = (accessToken = getStore(ACCESS_TOKEN)) => {
-  return async (dispatch) => {
-    try {
-      const result = await axios({
-        url: "https://shop.cyberlearn.vn/api/Users/OrderApproval",
-        method: "POST",
-        headers: {
-          Authorization: "Bearer " + accessToken,
-        },
-      });
-      console.log("333333333333444");
-
-      // Lấy được thông tin của profile => đưa lên redux
-      const action = getOrderApprovalAction(result.data.content);
-      console.log(action, "22222222222");
-      dispatch(action);
-      // lưu vào Storage
-      // setStoreJson(USER_LOGIN, result.data.content);
-    } catch (err) {
-      // alert(err.response.data.message);
-      console.log(err);
-    }
-  };
-};
 
 export const registerApi = (user) => {
   return async () => {
@@ -127,3 +103,11 @@ export const registerApi = (user) => {
     }
   };
 };
+
+// export const updateProfile = (userUpdate) =>{
+//   return async (dispatch) => {
+//     try{
+//       const result = awa
+//     }
+//   }
+// }

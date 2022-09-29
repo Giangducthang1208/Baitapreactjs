@@ -2,16 +2,18 @@ import React, { useState, useEffect } from "react";
 import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
 import * as Yup from "yup";
-import { loginApi } from "../../redux/reducer/userReducer";
+import { loginApi, getOrder } from "../../redux/reducer/userReducer";
 import { NavLink } from "react-router-dom";
-import { Divider, Button, Table } from "antd";
-import { Container } from "./Carts.style";
+import { Divider, Button, Table, notification } from "antd";
+import { Container, ContainerCount, ButtonAction, Title } from "./Carts.style";
 import { useSelector } from "react-redux";
 import { getOrderApproval } from "../../redux/reducer/userReducer";
 import {
   changeQuantityCartAction,
   deleteProdCartAction,
 } from "../../redux/reducer/productReducer";
+import axios from "axios";
+import { Notification } from "../../components/Notification/Notification";
 
 export default function Carts(props) {
   const dispatch = useDispatch();
@@ -33,6 +35,44 @@ export default function Carts(props) {
     setDataSource(arrCart);
   }, [arrCart]);
 
+  const submitOrder = () => {
+    let orderDetail = dataSource?.map((item, index) => {
+      return {
+        productId: item.id,
+        quantity: item.quantityCart,
+      };
+    });
+    if (userLogin && orderDetail?.length > 0) {
+      axios
+        .post("https://shop.cyberlearn.vn/api/Users/order", {
+          email: userLogin?.email,
+          orderDetail: orderDetail,
+        })
+        .then(function (response) {
+          Notification({
+            type: "success",
+            message: "Thành công",
+            description: "Đặt hàng thành công!",
+          });
+          setDataSource([]);
+          localStorage.removeItem("productCart");
+        })
+        .catch(function (error) {
+          Notification({
+            type: "error",
+            message: "Lỗi",
+            description: error.response.data.message,
+          });
+        });
+    } else {
+      Notification({
+        type: "error",
+        message: "Lỗi",
+        description: "Giỏ hàng trống nên không thể đặt hàng!",
+      });
+    }
+  };
+
   const columns = [
     {
       key: "index",
@@ -43,7 +83,7 @@ export default function Carts(props) {
       key: "id",
     },
     {
-      title: "image",
+      title: <Title>IMAGE</Title>,
       dataIndex: "image",
       key: "image",
       render: (_value) => (
@@ -58,45 +98,45 @@ export default function Carts(props) {
       ),
     },
     {
-      title: "name",
+      title: <Title>NAME</Title>,
       dataIndex: "name",
       key: "name",
     },
     {
-      title: "price",
+      title: <Title>PRICE</Title>,
       dataIndex: "price",
       key: "price",
     },
     {
-      title: "quantity",
+      title: <Title>QUANTITY</Title>,
       dataIndex: "quantityCart",
       key: "quantityCart",
       render: (_value, _records) => {
         return (
-          <>
-            <button
-              className="btn btn-warning mx-2"
+          <ContainerCount>
+            <Button
+              className="button-count button-subtract"
               onClick={() => {
                 changeQuantityCart(false, _records);
               }}
             >
               -
-            </button>
+            </Button>
             {_records?.quantityCart}
-            <button
-              className="btn btn-warning mx-2"
+            <Button
+              className="button-count button-add"
               onClick={() => {
                 changeQuantityCart(true, _records);
               }}
             >
               +
-            </button>
-          </>
+            </Button>
+          </ContainerCount>
         );
       },
     },
     {
-      title: "total",
+      title: <Title>TOTAL</Title>,
       dataIndex: "total",
       key: "total",
       render: (_value, _records) => {
@@ -106,19 +146,18 @@ export default function Carts(props) {
       },
     },
     {
-      title: "",
+      title: <Title>ACTION</Title>,
       dataIndex: "",
       key: "action",
       render: (_value, _records) => {
         return (
-          <button
-            className="btn btn-danger"
+          <ButtonAction
             onClick={() => {
               deleteProdCart(_records);
             }}
           >
-            Delete
-          </button>
+            DELETE
+          </ButtonAction>
         );
       },
     },
@@ -128,8 +167,15 @@ export default function Carts(props) {
     <Container>
       <h2>Carts</h2>
       <Divider plain></Divider>
-      <Table dataSource={dataSource} columns={columns} />
-      <Button>SUBMIT ORDER</Button>
+      <Table dataSource={dataSource} columns={columns} pagination={false} />
+      <div className="div-submit">
+        <ButtonAction
+          style={{ backgroundColor: "#F2994A", fontWeight: "bold" }}
+          onClick={submitOrder}
+        >
+          SUBMIT ORDER
+        </ButtonAction>
+      </div>
     </Container>
   );
 }

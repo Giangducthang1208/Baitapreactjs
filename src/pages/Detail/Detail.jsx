@@ -8,6 +8,7 @@ import {
   changeQuantityDetail,
   getProductDetailApi,
 } from "../../redux/reducer/productReducer";
+import { Notification } from "../../components/Notification/Notification";
 
 export default function Detail() {
   const { userLogin } = useSelector((state) => state.userReducer);
