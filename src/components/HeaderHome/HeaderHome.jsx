@@ -68,7 +68,7 @@ export default function HeaderHome() {
               <NavLink to="/adidas">Adidas</NavLink>
             </li>
             <li className="mx-2 fs-5">
-              <NavLink to="/converse">Converse Vans</NavLink>
+              <NavLink to="/converse">Converse and Vans</NavLink>
             </li>
           </ul>
         </div>

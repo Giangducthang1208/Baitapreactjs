@@ -3,16 +3,46 @@ import { useDispatch, useSelector } from "react-redux";
 import userReducer from "../../redux/reducer/userReducer";
 import { getProfileApi } from "../../redux/reducer/userReducer";
 import { orderItem } from "../../redux/reducer/productReducer";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 
 export default function Profile() {
   const { userLogin } = useSelector((state) => state.userReducer);
+  let userUpdate = { ...userLogin };
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getProfileApi());
   }, []);
   console.log(userLogin);
 
-  
+  const form = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+      name: "",
+      phone: "",
+      gender: "Male",
+    },
+    validationSchema: Yup.object().shape({
+      name: Yup.string().required("Name không được để trống"),
+
+      password: Yup.string()
+        .required("Password không được bỏ trống!")
+        .min(1, "Password từ 1 - 32 ký tự")
+        .max(32, "Password từ 1- 32 ký tự"),
+
+      phone: Yup.string()
+        .required("Phone không được để trống")
+        .matches(
+          /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/,
+          "Phone không đúng định dạng"
+        )
+        .min(8, "Phone từ 8 số trở lên"),
+    }),
+    onSubmit: (values) => {
+      //chỗ này để call api update
+    },
+  });
 
   return (
     <div className="container">
@@ -73,48 +103,63 @@ export default function Profile() {
                 <div className="col-6">
                   <div className="form-group">
                     <p>Email</p>
-                    <input className="form-control" id="id" name="id" value={userLogin.email} />
+                    <input
+                      className="form-control"
+                      id="email"
+                      name="email"
+                      disabled={true}
+                      defaultValue={userUpdate.email}
+                    />
                     <p className="text-danger"></p>
                   </div>
                   <div className="form-group">
                     <p>Phone</p>
-                    <input className="form-control" id="name" name="name" value={userLogin.phone} />
-                    <p className="text-danger"></p>
+                    <input
+                      data-type="number"
+                      className="form-control"
+                      id="phone"
+                      name="phone"
+                      onChange={form.handleChange}
+                      defaultValue={userUpdate.phone}
+                    />
+                    <div className="text-danger position-absolute">
+                      {form.errors.phone ? `${form.errors.phone}` : ""}
+                    </div>
                   </div>
                 </div>
                 <div className="col-6">
                   <div className="form-group">
                     <p>Name</p>
                     <input
-                      data-type="number"
                       className="form-control"
-                      id="price"
-                      name="price"
+                      id="name"
+                      name="name"
                       type="text"
-                      value={userLogin.name}
+                      onChange={form.handleChange}
+                      defaultValue={userUpdate.name}
                     />
-                    <p className="text-danger"></p>
+                    <div className="text-danger position-absolute">
+                      {form.errors.name ? `${form.errors.name}` : ""}
+                    </div>
                   </div>
                   <div className="form-group">
                     <p>Password</p>
                     <input
                       data-type="number"
                       className="form-control"
-                      id="price"
-                      name="price"
+                      id="password"
+                      name="password"
                       type="password"
-                      value={userLogin.password}
+                      onChange={form.handleChange}
+                      defaultValue={userUpdate.password}
                     />
-                    <p className="text-danger"></p>
+                    <div className="text-danger position-absolute">
+                      {form.errors.password ? `${form.errors.password}` : ""}
+                    </div>
                   </div>
                 </div>
               </div>
               <div className="card-footer">
-                <p>Gender</p>
-                <select>
-                  <option>Female</option>
-                  <option>Male</option>
-                </select>
                 <button
                   className="btn btn-primary mx-2"
                   type="submit"
