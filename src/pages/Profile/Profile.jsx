@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import userReducer from "../../redux/reducer/userReducer";
+import userReducer, { updateProfileApi } from "../../redux/reducer/userReducer";
 import { getProfileApi } from "../../redux/reducer/userReducer";
 import { orderItem } from "../../redux/reducer/productReducer";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import axios from "axios";
 
 export default function Profile() {
   const { userLogin } = useSelector((state) => state.userReducer);
@@ -13,15 +14,22 @@ export default function Profile() {
   useEffect(() => {
     dispatch(getProfileApi());
   }, []);
-  console.log(userLogin);
+  // console.log(userLogin);
+
+  // const {newuserUpdate} = useSelector((state) => state.userReducer );
+  // let newdata = {...userUpdate};
+  // useEffect(()=>{
+  //   dispatch(updateProfileApi());
+  // }, []);
+  // console.log(newuserUpdate);
 
   const form = useFormik({
     initialValues: {
-      email: "",
+      email: userLogin.email,
       password: "",
       name: "",
       phone: "",
-      gender: "Male",
+      gender: userLogin.gender,
     },
     validationSchema: Yup.object().shape({
       name: Yup.string().required("Name không được để trống"),
@@ -40,7 +48,7 @@ export default function Profile() {
         .min(8, "Phone từ 8 số trở lên"),
     }),
     onSubmit: (values) => {
-      //chỗ này để call api update
+      dispatch(updateProfileApi(values));
     },
   });
 
@@ -92,7 +100,7 @@ export default function Profile() {
             aria-labelledby="v-pills-Profile-tab"
             tabIndex={0}
           >
-            <form className="card">
+            <form className="card" onSubmit={form.handleSubmit}>
               <div
                 className="card-header bg-dark text-warning"
                 style={{ fontSize: 20, fontWeight: "bold" }}
@@ -138,7 +146,11 @@ export default function Profile() {
                       onChange={form.handleChange}
                       defaultValue={userUpdate.name}
                     />
-                    <div className="text-danger position-absolute">
+                    <p className="text-danger"></p>
+                    <div
+                      className="text-danger position-absolute"
+                      style={{ top: 135 }}
+                    >
                       {form.errors.name ? `${form.errors.name}` : ""}
                     </div>
                   </div>

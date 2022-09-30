@@ -110,4 +110,26 @@ export const registerApi = (user) => {
   };
 };
 
+export const updateProfileApi = (userUpdate) => {
+  return async (dispatch) => {
+    try {
+      console.log(userUpdate)
+      const result = await axios ({
+        url:'https://shop.cyberlearn.vn/api/Users/updateProfile',
+        method: 'POST',
+        data: userUpdate,
+        headers: {
+          // headers là các phần dữ liệu mặc định được gửi đi
+          Authorization: "Bearer " + getStore(ACCESS_TOKEN),
+        },
+      });
+      console.log("updateProfileApi",result);
+      dispatch(getProfileApi());
+      alert('Cập nhật dữ liệu thành công!')
+    }catch(err){
+      console.log(err);
+      alert('Cập nhật dữ liệu không thành công!');
+    }
+  };
+};
 
