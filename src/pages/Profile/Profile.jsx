@@ -5,15 +5,14 @@ import userReducer, {
   updateProfileApi,
 } from "../../redux/reducer/userReducer";
 import { getProfileApi } from "../../redux/reducer/userReducer";
-import { orderItem } from "../../redux/reducer/productReducer";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import axios from "axios";
 import { history } from "../../index";
 
 export default function Profile() {
   const { userLogin } = useSelector((state) => state.userReducer);
   let userUpdate = { ...userLogin };
+  let historyOrder = userLogin.ordersHistory;
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getProfileApi());
@@ -23,8 +22,8 @@ export default function Profile() {
     initialValues: {
       email: userLogin?.email,
       password: "",
-      name: "",
-      phone: "",
+      name: userLogin?.name,
+      phone: userLogin?.phone,
       gender: userLogin?.gender,
     },
     validationSchema: Yup.object().shape({
@@ -58,7 +57,7 @@ export default function Profile() {
           aria-orientation="vertical"
         >
           <div>
-            <img src={userLogin?.avatar} className="w-50" alt="..." />
+            <img src={userLogin?.avatar} className="w-50 rounded" alt="..." />
           </div>
           <br />
           <br />
@@ -103,67 +102,77 @@ export default function Profile() {
               >
                 Profile
               </div>
-              <div className="card-body row">
+              <div className="card-body row my-2">
                 <div className="col-6">
                   <div className="form-group">
                     <p>Email</p>
                     <input
-                      className="form-control"
+                      className="form-control my-2"
                       id="email"
                       name="email"
                       disabled={true}
                       defaultValue={userUpdate.email}
                     />
-                    <p className="text-danger"></p>
                   </div>
-                  <div className="form-group">
+                  <div className="form-group mt-4">
                     <p>Phone</p>
                     <input
                       data-type="number"
-                      className="form-control"
+                      className="form-control my-2"
                       id="phone"
                       name="phone"
                       onChange={form.handleChange}
                       defaultValue={userUpdate.phone}
+                      onBlur={form.handleBlur}
                     />
-                    <div className="text-danger position-absolute">
-                      {form.errors.phone ? `${form.errors.phone}` : ""}
-                    </div>
+                    {form.errors.phone && form.touched.phone ? (
+                      <div className="text-danger position-absolute">
+                        {form.errors.phone}
+                      </div>
+                    ) : (
+                      ""
+                    )}
                   </div>
                 </div>
                 <div className="col-6">
                   <div className="form-group">
                     <p>Name</p>
                     <input
-                      className="form-control"
+                      className="form-control my-2"
                       id="name"
                       name="name"
                       type="text"
                       onChange={form.handleChange}
+                      onBlur={form.handleBlur}
                       defaultValue={userUpdate.name}
                     />
-                    <p className="text-danger"></p>
-                    <div
-                      className="text-danger position-absolute"
-                      style={{ top: 135 }}
-                    >
-                      {form.errors.name ? `${form.errors.name}` : ""}
-                    </div>
+                    {form.errors.name && form.touched.name ? (
+                      <div className="text-danger position-absolute">
+                        {form.errors.name}
+                      </div>
+                    ) : (
+                      ""
+                    )}
                   </div>
-                  <div className="form-group">
+                  <div className="form-group mt-4">
                     <p>Password</p>
                     <input
                       data-type="number"
-                      className="form-control"
+                      className="form-control my-2"
                       id="password"
                       name="password"
                       type="password"
                       onChange={form.handleChange}
+                      onBlur={form.handleBlur}
                       defaultValue={userUpdate.password}
                     />
-                    <div className="text-danger position-absolute">
-                      {form.errors.password ? `${form.errors.password}` : ""}
-                    </div>
+                    {form.errors.password && form.touched.password ? (
+                      <div className="text-danger position-absolute">
+                        {form.errors.password}
+                      </div>
+                    ) : (
+                      ""
+                    )}
                   </div>
                 </div>
               </div>
@@ -194,7 +203,7 @@ export default function Profile() {
             tabIndex={0}
           >
             <h3>Order Detail</h3>
-            {userLogin.ordersHistory?.map((orderItem, index) => {
+            {historyOrder?.map((orderItem, index) => {
               return (
                 <div key={index}>
                   <hr />
@@ -226,11 +235,11 @@ export default function Profile() {
                                 alt="..."
                               />
                             </td>
-                            <td>{item.name}</td>
+                            <td width={380}>{item.name}</td>
                             <td>{item.price.toLocaleString()}</td>
                             <td>{item.quantity}</td>
                             <td>
-                              {(item.price * item.quantity).toLocaleString()}
+                              {(item.price * item.quantity).toLocaleString()} $
                             </td>
                           </tr>
                         );

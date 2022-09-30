@@ -37,52 +37,75 @@ export default function Login(props) {
   });
 
   return (
-    <div className="container">
-      <h3>Login</h3>
-      <hr />
-      <form onSubmit={frm.handleSubmit}>
-        <div className="form-group col-3">
-          <p>Email</p>
-          <input
-            type="Email"
-            className="form-control"
-            id="email"
-            name="email"
-            onChange={frm.handleChange}
-            onBlur={frm.handleBlur}
+    <div className="container py-5 h-100" id="register">
+      <div className="row d-flex align-items-center justify-content-center h-100">
+        <div className="col-md-8 col-lg-7 col-xl-6">
+          <img
+            src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
+            className="img-fluid"
+            alt="Phone image"
           />
-          {frm.errors.email ? (
-            <span className="text-danger">{frm.errors.email}</span>
-          ) : (
-            ""
-          )}
         </div>
-        <div className="form-group col-3">
-          <p>Password</p>
-          <input
-            type="Password"
-            className="form-control"
-            id="Password"
-            name="password"
-            onChange={frm.handleChange}
-            onBlur={frm.handleBlur}
-          />
-          {frm.errors.password ? (
-            <span className="text-danger">{frm.errors.password}</span>
-          ) : (
-            ""
-          )}
+        <div className="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
+          <form onSubmit={frm.handleSubmit}>
+            <div className="form-outline mb-4">
+              <label className="form-label" htmlFor="form1Example13">
+                Email address
+              </label>
+              <input
+                type="email"
+                id="email"
+                className="form-control form-control-lg"
+                onChange={frm.handleChange}
+                onBlur={frm.handleBlur}
+              />
+              {frm.errors.email && frm.touched.email ? (
+                <div className="text-danger position-absolute">
+                  {frm.errors.email}
+                </div>
+              ) : (
+                ""
+              )}
+            </div>
+            <div className="form-outline mb-4">
+              <label className="form-label" htmlFor="form1Example23">
+                Password
+              </label>
+              <input
+                type="password"
+                id="password"
+                className="form-control form-control-lg"
+                onChange={frm.handleChange}
+                onBlur={frm.handleBlur}
+              />
+              {frm.errors.password && frm.touched.password ? (
+                <div className="text-danger position-absolute">
+                  {frm.errors.password}
+                </div>
+              ) : (
+                ""
+              )}
+            </div>
+            <div className="register mb-3">
+              Not a member:
+              <NavLink to={"/register"} className="">
+                {" "}
+                Sign up ?
+              </NavLink>
+            </div>
+            <button
+              type="submit"
+              className="btn btn-warning btn-lg btn-block w-100"
+            >
+              Sign in
+            </button>
+            <div className="divider d-flex align-items-center my-4">
+              <p className="text-center fw-bold mx-3 mb-0 text-muted">OR</p>
+            </div>
+            <LoginFb/>
+          </form>
         </div>
-        <div className="form-group col-3">
-          <NavLink to='/register'>Register ?</NavLink>
-          <button className="btn btn-success" type="submit">
-            Login
-          </button>
-          <br />
-          <br />
-          <LoginFb />
-        </div>
-      </form>
+      </div>
     </div>
   );
 }

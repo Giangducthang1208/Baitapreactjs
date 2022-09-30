@@ -16,7 +16,7 @@ import {
 } from "../../redux/reducer/productReducer";
 import axios from "axios";
 import { Notification } from "../../components/Notification/Notification";
-
+import cartEmty from '../../assets/img/cart.webp'
 export default function Carts(props) {
   const dispatch = useDispatch();
   const { arrCart } = useSelector((state) => state.product);
@@ -188,7 +188,7 @@ export default function Carts(props) {
       ) : (
         <div className="div-img">
           <h2>Không có sản phẩm nào trong giỏ hàng.</h2>
-          <img src={empty_cart} alt="" />
+          <img src={cartEmty} alt="" />
         </div>
       )}
     </Container>
