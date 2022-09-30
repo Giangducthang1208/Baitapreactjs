@@ -16,8 +16,8 @@ npm start
 ```
 
 ## Build
-- _home, detail, register page:_ make by Le Thanh Hieu //
-- _cart, login, profile page:_ make by Le Thanh Hieu
+- _home, detail, register page:_ make by Le Thanh Hieu
+- _cart, login, profile page:_ make by Giang Duc Thang
 
 
 ## Feature
