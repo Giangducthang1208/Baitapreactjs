@@ -1,16 +1,31 @@
-# Project ReactJs Capstone
+# ReactJs Capstone
 
-Page folder: các page trong dự án capstone
+Final exercise of ReactJs course
 
-Component folder: Chứa các component dùng chung cho project
+## Installation
+Install module
 
-const assets/sass  = {
-    abstracts: 'chứa func, mixin, biến của sass',
-    base: 'chứa các css dùng chung cho toàn bộ project',
-    component: 'chứa các component scss',
-    layout: 'chứa header, footer,... dùng chung toàn bộ project',
-    pages: 'chứa css của các page trong project',
-    vendor: 'chứa các thư viện scss, ultility,...'
-    main.scss: 'link tất cả các file scss trên lại và link file main.scss vào index.js trong project react'
-}
+```bash
+npm i --legacy-peer-deps
+```
 
+## Usage
+Start project
+```java
+npm start
+```
+
+## Build
+- _home, detail, register page:_ make by Le Thanh Hieu //
+- _cart, login, profile page:_ make by Le Thanh Hieu
+
+
+## Feature
+- Load list product form API
+- Order and aprovel order
+- Register accout to `Add to cart` and order feature
+- Login by accout form register page
+- Load profile and update profile
+- Load order history was ordered
+## Bug
+- You tell me
