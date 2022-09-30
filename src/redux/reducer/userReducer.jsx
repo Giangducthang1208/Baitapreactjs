@@ -24,13 +24,16 @@ const userReducer = createSlice({
     getProfileAction: (state, action) => {
       state.userLogin = action.payload;
     },
+    signOutAction: (state, action) => {
+      state.userLogin = [];
+    },
     // getOrderApprovalAction: (state, action) => {
     //   state.orderApproval = action.payload;
     // },
   },
 });
 
-export const { getProfileAction } = userReducer.actions;
+export const { getProfileAction,signOutAction } = userReducer.actions;
 
 export default userReducer.reducer;
 
@@ -45,13 +48,13 @@ export const loginApi = (userLogin) => {
       });
 
       //Sau khi đăng nhập thành công => lưu dữ liệu vào localstorage hoặc cookie
-      
+
       // console.log(result);
       setCookie(ACCESS_TOKEN, result.data.content.accessToken, 30);
       setStore(ACCESS_TOKEN, result.data.content.accessToken);
       // Chuyển hướng về profile , trang quên mật khẩu
       history.push("/profile");
-
+      
       Notification({
         type: "success",
         message: "Thành công",
@@ -59,9 +62,14 @@ export const loginApi = (userLogin) => {
       });
       // Sau khi đăng nhập thành công thì dispatch action getProfile
       dispatch(getProfileApi());
+      window.location.reload(false);
       // dispatch(getOrderApproval());
     } catch (err) {
-      alert(err.response.data.message);
+      Notification({
+        type: "error",
+        message: "Thất bại",
+        description: "Đăng nhập thất bại",
+      });
       console.log(err);
     }
   };
@@ -89,7 +97,6 @@ export const getProfileApi = (accessToken = getStore(ACCESS_TOKEN)) => {
   };
 };
 
-
 export const registerApi = (user) => {
   return async () => {
     try {
@@ -102,7 +109,6 @@ export const registerApi = (user) => {
       });
       alert(result.data.message);
       history.push("/login");
-      console.log(result);
     } catch (err) {
       alert(err.response.data.message);
       console.log(err);
@@ -113,23 +119,26 @@ export const registerApi = (user) => {
 export const updateProfileApi = (userUpdate) => {
   return async (dispatch) => {
     try {
-      console.log(userUpdate)
-      const result = await axios ({
-        url:'https://shop.cyberlearn.vn/api/Users/updateProfile',
-        method: 'POST',
+      console.log(userUpdate);
+      const result = await axios({
+        url: "https://shop.cyberlearn.vn/api/Users/updateProfile",
+        method: "POST",
         data: userUpdate,
         headers: {
           // headers là các phần dữ liệu mặc định được gửi đi
           Authorization: "Bearer " + getStore(ACCESS_TOKEN),
         },
       });
-      console.log("updateProfileApi",result);
+      console.log("updateProfileApi", result);
       dispatch(getProfileApi());
-      alert('Cập nhật dữ liệu thành công!')
-    }catch(err){
+      Notification({
+        type: "success",
+        message: "Thành công",
+        description: "Cập nhật dữ liệu thành công!",
+      });
+    } catch (err) {
       console.log(err);
-      alert('Cập nhật dữ liệu không thành công!');
+      alert("Cập nhật dữ liệu không thành công!");
     }
   };
 };
-

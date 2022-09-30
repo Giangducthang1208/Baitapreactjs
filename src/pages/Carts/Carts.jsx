@@ -172,7 +172,6 @@ export default function Carts(props) {
 
   return (
     <Container>
-      <h2>Carts</h2>
       <Divider plain></Divider>
       {dataSource?.length > 0 ? (
         <>

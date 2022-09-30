@@ -12,12 +12,13 @@ export default function HeaderHome() {
   const renderLoginNavItem = () => {
     if (userLogin == null) {
       return <NavLink to="/login">Login</NavLink>;
+    } else {
+      return (
+        <NavLink to="/profile">
+          <i className="fa-solid fa-user"></i> {userLogin.name}
+        </NavLink>
+      );
     }
-    return (
-      <NavLink to="/profile">
-        <i className="fa-solid fa-user"></i> {userLogin.name}
-      </NavLink>
-    );
   };
 
   const renderCartNavItem = () => {

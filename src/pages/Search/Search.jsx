@@ -14,7 +14,7 @@ export default function Search() {
   };
   useEffect(() => {
     getAllProductApi();
-  }, []);
+  });
   return (
     <>
       <div className="container d-flex justify-content-center" id="search">

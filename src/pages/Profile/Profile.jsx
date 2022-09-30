@@ -1,11 +1,15 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import userReducer, { updateProfileApi } from "../../redux/reducer/userReducer";
+import userReducer, {
+  signOutAction,
+  updateProfileApi,
+} from "../../redux/reducer/userReducer";
 import { getProfileApi } from "../../redux/reducer/userReducer";
 import { orderItem } from "../../redux/reducer/productReducer";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
+import { history } from "../../index";
 
 export default function Profile() {
   const { userLogin } = useSelector((state) => state.userReducer);
@@ -14,22 +18,14 @@ export default function Profile() {
   useEffect(() => {
     dispatch(getProfileApi());
   }, []);
-  // console.log(userLogin);
-
-  // const {newuserUpdate} = useSelector((state) => state.userReducer );
-  // let newdata = {...userUpdate};
-  // useEffect(()=>{
-  //   dispatch(updateProfileApi());
-  // }, []);
-  // console.log(newuserUpdate);
 
   const form = useFormik({
     initialValues: {
-      email: userLogin.email,
+      email: userLogin?.email,
       password: "",
       name: "",
       phone: "",
-      gender: userLogin.gender,
+      gender: userLogin?.gender,
     },
     validationSchema: Yup.object().shape({
       name: Yup.string().required("Name không được để trống"),
@@ -171,15 +167,21 @@ export default function Profile() {
                   </div>
                 </div>
               </div>
-              <div className="card-footer">
-                <button
-                  className="btn btn-primary mx-2"
-                  type="submit"
-                  // onClick={() => {
-                  //   this.props.updateProduct(this.state.productInfo);
-                  // }}
-                >
+              <div className="card-footer text-end">
+                <button className="btn btn-primary mx-2" type="submit">
                   Update
+                </button>
+                <button
+                  className="btn btn-danger mx-2"
+                  onClick={() => {
+                    localStorage.removeItem("accessToken");
+                    localStorage.removeItem("userLogin");
+                    dispatch(signOutAction());
+                    history.push("/");
+                    window.location.reload(false);
+                  }}
+                >
+                  Sign out
                 </button>
               </div>
             </form>

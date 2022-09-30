@@ -71,6 +71,9 @@ const productReducer = createSlice({
     submitOrderAction: (state, action) => {
       state.arrCart = [];
     },
+    signOutCartActtion: (state, action) => {
+      state.arrCart = "";
+    },
   },
 });
 
@@ -116,4 +119,3 @@ export const getProductDetailApi = (id) => {
     }
   };
 };
-
