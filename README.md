@@ -28,4 +28,4 @@ npm start
 - Load profile and update profile
 - Load order history was ordered
 ## Bug
-- You tell me
+- Login Facebook feature not working
